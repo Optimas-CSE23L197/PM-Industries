@@ -162,7 +162,7 @@
                         <!-- Production -->
                         <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
                             <div class="card dept-card h-100 shadow-sm border-0"
-                                onclick="location.href='production/dashboard_production.html';">
+                                onclick="location.href='{{Route("production")}}';">
                                 <div class="card-body p-4 d-flex flex-column">
                                     <div class="dept-icon-wrapper bg-production">
                                         <i class="fas fa-cogs"></i>
