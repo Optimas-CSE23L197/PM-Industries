@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{ AuthCntlr, CompanyCntlr };
+use App\Http\Controllers\RawMaterialsInventory\{ DashboardCntlr, RawItemTypeCntlr, RawItemCntlr };
 
 
 Route::controller(AuthCntlr::class)->group(function(){
@@ -25,4 +26,27 @@ Route::middleware(['checksession'])->group(function () {
         Route::post('/save-company', 'saveComp')->name('saveComp');
         Route::get('/company-stat-change/{code}/{aedl}', 'statComp')->name('statComp');
     });
+
+    /* ============== || Raw Materials Inventory || ================ */
+    Route::prefix('/raw-materials-inventory')->group(function(){
+        Route::get('/dashboard', [DashboardCntlr::class, 'dashboard'])->name('rawMaterialsInventory.dashboard');
+        /* ============== || Raw Item Type || ================ */
+        Route::controller(RawItemTypeCntlr::class)->group(function(){
+            Route::get('/raw-item-type', 'index')->name('rawMaterialsInventory.rawMaterialTypeList');
+            Route::get('/raw-item-type-details/{mode}/{code?}', 'getDetails')->name('rawMaterialsInventory.rawMaterialTypeDetails');
+            Route::post('/save-raw-item-type', 'saveRawMaterialType')->name('rawMaterialsInventory.rawMaterialTypeSave');
+            Route::get('/raw-item-type-stat-change/{code}/{aedl}', 'statRawMaterialType')->name('rawMaterialsInventory.rawMaterialTypeStatChange');
+        });
+        /* ============== || Raw Item Type || ================ */
+
+        /* ============== || Raw Item || ================ */
+        Route::controller(RawItemCntlr::class)->group(function(){
+            Route::get('/raw-item', 'getList')->name('rawMaterialsInventory.rawItemList');
+            Route::get('/raw-item-details/{mode}/{code?}', 'getDetails')->name('rawMaterialsInventory.rawItemDetails');
+            Route::post('/save-raw-item', 'saveRawItem')->name('rawMaterialsInventory.rawItemSave');
+            Route::get('/raw-item-stat-change/{code}/{aedl}', 'statRawItem')->name('rawMaterialsInventory.rawItemStatChange');
+        });
+        /* ============== || Raw Item || ================ */
+    });
+    /* ============== || Raw Materials Inventory || ================ */
 });

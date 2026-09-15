@@ -8,8 +8,8 @@ class MasterService{
         $this->api = $api;
     }
 
-    public function getCompany( $showall ){
-        $param = ['aedl'=>'L', 'showall'=>$showall];
+    public function getCompany( $code, $showall ){
+        $param = ['aedl'=>'L', 'code'=>$code, 'showall'=>$showall];
         return $this->api->get('company.php', $param);
     }
 }

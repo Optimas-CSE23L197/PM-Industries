@@ -139,7 +139,7 @@
                         <!-- Raw Material Inventory -->
                         <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
                             <div class="card dept-card h-100 shadow-sm border-0"
-                                onclick="location.href='inventory/dashboard_inventory.html';">
+                                onclick="location.href='{{ route('rawMaterialsInventory.dashboard') }}';">
                                 <div class="card-body p-4 d-flex flex-column">
                                     <div class="dept-icon-wrapper bg-inventory">
                                         <i class="fas fa-boxes-stacked"></i>
