@@ -25,8 +25,8 @@
                         <thead class="thead-light">
                             <tr>
                                 <th style="width:80%">Name</th>
-                                <th style="width:10%">Status</th>
-                                <th style="width:10%">Action</th>
+                                <th style="width:10%; text-align:center">Status</th>
+                                <th style="width:10%; text-align:center">Action</th>
                             </tr>
                         </thead>
                         <tbody>

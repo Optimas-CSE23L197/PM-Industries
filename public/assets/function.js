@@ -248,9 +248,9 @@ mtd = {
       if($(this).closest('#invoiceTable').length) return;
       var xyz = $(this).text();
 	  xyz = xyz.trim();
-      if(xyz == '0.00' || xyz == '00' || xyz == '0' || xyz == '0.0' || xyz == '0.000'){
-        $(this).text('');
-      }
+      // if(xyz == '0.00' || xyz == '00' || xyz == '0' || xyz == '0.0' || xyz == '0.000'){
+      //   $(this).text('');
+      // }
     });
   },
   ///////////////////////////////////////////////////////

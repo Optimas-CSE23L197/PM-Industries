@@ -1,5 +1,5 @@
 @extends('layout.app', ['dept' => 'Raw Material Inventory'])
-@section('page_title', 'Raw Item')
+@section('page_title', 'Department')
 
 @section('content')
 
@@ -7,15 +7,15 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header py-1">
-                    <label for="" class="card-title">Raw Item</label>
+                    <label for="" class="card-title">Department</label>
                     <div class="float-right">
                         <button class="btn btn-sm btn-secondary"
-                            onclick="location.href='{{ Route('rawMaterialsInventory.printRawItemList') }}'">
+                            onclick="location.href='{{ Route('rawMaterialsInventory.printDepartmentList') }}'">
                             <i class="fas fa-print mr-1"></i> Print 
                         </button>
                         
                         <button class="btn btn-sm btn-dark"
-                            onclick="location.href='{{ Route('rawMaterialsInventory.rawItemDetails', 'new') }}'">
+                            onclick="location.href='{{ Route('rawMaterialsInventory.departmentDetails', 'new') }}'">
                             <i class="fas fa-plus-circle mr-1"></i> Add New 
                         </button>
                     </div>
@@ -24,16 +24,15 @@
                     <table id="depttable" class="table table-sm table-bordered">
                         <thead class="thead-light">
                             <tr>
-                                <th style="width:60%">Name</th>
-                                <th style="width:20%">Type</th>
+                                <th style="width:80%">Name</th>
                                 <th style="width:10%; text-align:center">Status</th>
                                 <th style="width:10%; text-align:center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($rawItems as $r)
+                            @forelse ( $deprt as $d )
                                 @php
-                                    $status = $r['active_yn'] ?? 'N';
+                                    $status = $d['active_yn'] ?? 'N';
                                     $btnColor = $aedl = '';
                                     if ($status === 'Y') {
                                         $status = 'Active';
@@ -46,11 +45,10 @@
                                     }
                                 @endphp
                                 <tr>
-                                    <td>{{ $r['name'] ?? '' }}</td>
-                                    <td>{{ $r['type_name'] ?? '' }}</td>
+                                    <td>{{ $d['name'] ?? '' }}</td>
                                     <td>
                                         <button type='button' class="btn btn-xs {{ $btnColor }} btn-block"
-                                            onclick="mtd.show_msg(2, '{{ route('rawMaterialsInventory.rawItemStatChange', ['code' => $r['code'], 'aedl' => $aedl]) }}', 'Are you sure to change its status..?', 2);">
+                                            onclick="mtd.show_msg(2, '{{ Route('rawMaterialsInventory.departmentStatChange', ['code' => $d['code'], 'aedl' => $aedl]) }}', 'Are you sure to change its status..?', 2);">
                                             {{ $status }}
                                         </button>
                                     </td>
@@ -58,8 +56,7 @@
                                         <i class="fas fa-bars ml-2 mr-1" data-toggle="dropdown" href="#"
                                             style="cursor:pointer"></i>
                                         <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                                            <a href="{{ Route('rawMaterialsInventory.rawItemDetails', ['mode' => 'view', 'code' => $r['code']]) }}"
-                                                class="dropdown-item">
+                                            <a href="{{ Route('rawMaterialsInventory.departmentDetails', ['mode'=>'view', 'code'=>$d['code'] ?? 0]) }}" class="dropdown-item">
                                                 <div class="media">
                                                     <div class="media-body">
                                                         <p>View</p>
@@ -67,8 +64,7 @@
                                                 </div>
                                             </a>
                                             <div class="dropdown-divider"></div>
-                                            <a href="{{ Route('rawMaterialsInventory.rawItemDetails', ['mode' => 'edit', 'code' => $r['code']]) }}"
-                                                class="dropdown-item">
+                                            <a href="{{ Route('rawMaterialsInventory.departmentDetails', ['mode'=>'edit', 'code'=>$d['code'] ?? 0]) }}" class="dropdown-item">
                                                 <div class="media">
                                                     <div class="media-body">
                                                         <p>Edit</p>
@@ -80,7 +76,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center">No Data Found</td>
+                                    <td colspan="3" style="text-align:center">No data available</td>
                                 </tr>
                             @endforelse
                         </tbody>

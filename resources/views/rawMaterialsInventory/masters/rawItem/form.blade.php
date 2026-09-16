@@ -67,7 +67,7 @@
         </div>
     </section>
 
-     @push('js')
+    @push('js')
         <script>
             const mode = @json($mode);
             $(function(){

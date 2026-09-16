@@ -13,7 +13,7 @@
     <ul class="navbar-nav ml-auto">
         <!-- Switch Department -->
         <li class="nav-item">
-            <a class="nav-link" href="../choose_department.html" data-toggle="tooltip" data-placement="top" data-html="true"
+            <a class="nav-link" href="{{ Route('chooseDept') }}" data-toggle="tooltip" data-placement="top" data-html="true"
                 title="Switch Department">
                 <i class="fas fa-right-left"></i>
             </a>

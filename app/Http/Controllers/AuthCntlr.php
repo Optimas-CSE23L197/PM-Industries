@@ -49,6 +49,6 @@ class AuthCntlr extends Controller
     public function logout(Request $request){
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->Route('/userLogin');
+        return redirect()->Route('userLogin');
     }
 }

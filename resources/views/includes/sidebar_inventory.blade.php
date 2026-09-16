@@ -12,7 +12,7 @@
             <ul class="nav nav-flat nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                 <li class="nav-item">
-                    <a href="dashboard_inventory.html" class="nav-link">
+                    <a href="{{ route('rawMaterialsInventory.dashboard') }}" class="nav-link">
                         <i class="nav-icon fas fa-chart-line"></i>
                         <p>
                             Dashboard
@@ -29,7 +29,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="purchase_order.html" class="nav-link">
+                            <a href="{{ route('rawMaterialsInventory.purchaseOrderList') }}" class="nav-link">
                                 <i class="fas fa-caret-right nav-icon"></i>
                                 <p>Purchase Order</p>
                             </a>
@@ -105,25 +105,25 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="store.html" class="nav-link">
+                            <a href="{{ route('rawMaterialsInventory.storeList') }}" class="nav-link">
                                 <i class="fas fa-caret-right nav-icon"></i>
                                 <p>Store</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="supplier.html" class="nav-link">
+                            <a href="{{ route('rawMaterialsInventory.supplierList') }}" class="nav-link">
                                 <i class="fas fa-caret-right nav-icon"></i>
                                 <p>Supplier</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="department.html" class="nav-link">
+                            <a href="{{ route('rawMaterialsInventory.departmentList') }}" class="nav-link">
                                 <i class="fas fa-caret-right nav-icon"></i>
                                 <p>Department</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="opening_stock.html" class="nav-link">
+                            <a href="{{ route('rawMaterialsInventory.opStkList') }}" class="nav-link">
                                 <i class="fas fa-caret-right nav-icon"></i>
                                 <p>Opening Stock</p>
                             </a>
