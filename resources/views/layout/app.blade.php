@@ -28,9 +28,14 @@
         <div id="header-container">
             @include('includes.header')
         </div>
+        
         <div id="sidebar-container">
-            @include('includes.sidebar_inventory')
+            @if ( $dept === 'Raw Material Inventory' )
+                @include('includes.sidebar_inventory')
+                <script src="{{ asset('assets/dist/js/sidebar_inventory.js') }}"></script>
+            @endif
         </div>
+
         <div class="content-wrapper">
 
              <!-- Page Header -->
@@ -76,7 +81,6 @@
     </div>
 
     <script src="{{ asset('assets/dist/js/loader.js') }}"></script>
-    <script src="{{ asset('assets/dist/js/sidebar_inventory.js') }}"></script>
     <script src="{{ asset('assets/dist/js/footer.js') }}"></script>
     <script src="{{ asset('assets/dist/js/form_submit.js') }}"></script>
     <script src="{{ asset('assets/dist/js/current_date.js') }}"></script>

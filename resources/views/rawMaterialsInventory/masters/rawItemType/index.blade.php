@@ -1,4 +1,4 @@
-@extends('rawMaterialsInventory.layout.app')
+@extends('layout.app', ['dept' => 'Raw Material Inventory'])
 @section('page_title', 'Raw Item Type')
 
 @section('content')
@@ -8,11 +8,17 @@
             <div class="card">
                 <div class="card-header py-1">
                     <label for="" class="card-title">Raw Item Type</label>
-                    <button class="btn btn-sm btn-dark float-right"
-                        onclick="location.href='{{ Route('rawMaterialsInventory.rawMaterialTypeDetails', 'new') }}';">
-                        <i class="fas fa-plus-circle mr-1"></i>
-                        Add New
-                    </button>
+                    <div class="float-right">
+                        <button class="btn btn-sm btn-secondary"
+                            onclick="location.href='{{ Route('rawMaterialsInventory.printRawItemTypeList') }}'">
+                            <i class="fas fa-print mr-1"></i> Print 
+                        </button>
+                        
+                        <button class="btn btn-sm btn-dark"
+                            onclick="location.href='{{ Route('rawMaterialsInventory.rawMaterialTypeDetails', 'new') }}'">
+                            <i class="fas fa-plus-circle mr-1"></i> Add New 
+                        </button>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table id="depttable" class="table table-sm table-bordered">
