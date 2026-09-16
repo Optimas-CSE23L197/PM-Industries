@@ -16,9 +16,9 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/main.css') }}">
 </head>
 
@@ -26,13 +26,14 @@
     <div class="wrapper">
         <div id="loader"></div>
         <div id="header-container">
-            @include('includes.header_common')
+            @include('includes.header')
         </div>
         <div id="sidebar-container">
-            @include('includes.sidebar_production')
+            @include('includes.sidebar_inventory')
         </div>
         <div class="content-wrapper">
-            <!-- Page Header -->
+
+             <!-- Page Header -->
             <div class="content-header p-0">
                 <div class="container-fluid py-1 px-3 bg-dark">
 
@@ -74,45 +75,34 @@
         <div id="footer-container"></div>
     </div>
 
-    <!-- Loader -->
     <script src="{{ asset('assets/dist/js/loader.js') }}"></script>
-    <!-- Header -->
-    {{-- <script src="{{ asset('assets/dist/js/header_common.js') }}"></script> --}}
-    <!-- Navbar -->
-    {{-- <script src="{{ asset('assets/dist/js/navbar.js') }}"></script> --}}
-    <!-- Sidebar -->
-    <script src="{{ asset('assets/dist/js/sidebar_production.js') }}"></script>
-    <!-- Footer -->
+    <script src="{{ asset('assets/dist/js/sidebar_inventory.js') }}"></script>
     <script src="{{ asset('assets/dist/js/footer.js') }}"></script>
-    <!-- Submit Button -->
     <script src="{{ asset('assets/dist/js/form_submit.js') }}"></script>
-    <!-- Current Date -->
     <script src="{{ asset('assets/dist/js/current_date.js') }}"></script>
-    <!-- jQuery -->
     <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{{ asset('assets/function.js') }}"></script>
-    
-    <!-- Bootstrap 4 -->
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- AdminLTE App -->
     <script src="{{ asset('assets/dist/js/adminlte.min.js') }}"></script>
-    <script src="{{ asset('assets/dist/js/demo.js') }}"></script>
+    <!-- <script src="{{ asset('assets/dist/js/demo.js') }}"></script> -->
+
     <!-- Select2 -->
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
         $(function () {
-            //Initialize Select2 Elements
             $('.select2').select2()
         })
     </script>
+
     <!-- DataTables -->
     <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('assets/function.js') }}"></script>
+
     <!-- Datatables -->
     <script>
         $(function () {
@@ -129,6 +119,7 @@
     </script>
 
     @stack('js')
+
 </body>
 
 </html>

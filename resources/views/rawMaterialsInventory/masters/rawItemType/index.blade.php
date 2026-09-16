@@ -1,6 +1,5 @@
-@extends('company.layout.app')
-
-@section('pageTitle', 'Company')
+@extends('rawMaterialsInventory.layout.app')
+@section('page_title', 'Raw Item Type')
 
 @section('content')
 
@@ -8,13 +7,15 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header py-1">
-                    <label for="" class="card-title">Company</label>
+                    <label for="" class="card-title">Raw Item Type</label>
                     <button class="btn btn-sm btn-dark float-right"
-                        onclick="location.href='{{ Route('compDetails', 'new') }}';"><i class="fas fa-plus-circle mr-1"></i>
-                        Add New</button>
+                        onclick="location.href='{{ Route('rawMaterialsInventory.rawMaterialTypeDetails', 'new') }}';">
+                        <i class="fas fa-plus-circle mr-1"></i>
+                        Add New
+                    </button>
                 </div>
                 <div class="card-body">
-                    <table id="depttable" class="table table-sm table-bordered text-xs">
+                    <table id="depttable" class="table table-sm table-bordered">
                         <thead class="thead-light">
                             <tr>
                                 <th style="width:80%">Name</th>
@@ -23,9 +24,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($comp as $c)
+                            @forelse($rmType as $r)
                                 @php
-                                    $status = $c['activeyn'] ?? 'N';
+                                    $status = $r['active_yn'] ?? 'N';
                                     $btnColor = $aedl = '';
                                     if( $status === 'Y' ) {
                                         $status = 'Active';
@@ -38,10 +39,10 @@
                                     }
                                 @endphp
                                 <tr>
-                                    <td>{{ $c['name'] }}</td>
+                                    <td>{{ $r['name'] ?? '' }}</td>
                                     <td>
                                         <button type='button' class="btn btn-xs {{ $btnColor }} btn-block"
-                                            onclick="mtd.show_msg(2, '{{route('statComp', ['code' => $c['code'], 'aedl'=>$aedl])}}', 'Are you sure to change its status..?', 2);"
+                                            onclick="mtd.show_msg(2, '{{route('rawMaterialsInventory.rawMaterialTypeStatChange', ['code' => $r['code'], 'aedl'=>$aedl])}}', 'Are you sure to change its status..?', 2);"
                                         >
                                             {{ $status }}
                                         </button>
@@ -50,7 +51,7 @@
                                         <i class="fas fa-bars ml-2 mr-1" data-toggle="dropdown" href="#"
                                             style="cursor:pointer"></i>
                                         <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                                            <a href="{{ Route('compDetails', ['mode'=>'view', 'code'=>$c['code']]) }}" class="dropdown-item">
+                                            <a href="{{ Route('rawMaterialsInventory.rawMaterialTypeDetails', ['mode' => 'view', 'code' => $r['code']]) }}" class="dropdown-item">
                                                 <div class="media">
                                                     <div class="media-body">
                                                         <p>View</p>
@@ -58,7 +59,7 @@
                                                 </div>
                                             </a>
                                             <div class="dropdown-divider"></div>
-                                            <a href="{{ Route('compDetails', ['mode'=>'edit', 'code'=>$c['code']]) }}" class="dropdown-item">
+                                            <a href="{{ Route('rawMaterialsInventory.rawMaterialTypeDetails', ['mode' => 'edit', 'code' => $r['code']]) }}" class="dropdown-item">
                                                 <div class="media">
                                                     <div class="media-body">
                                                         <p>Edit</p>
@@ -69,7 +70,9 @@
                                     </td>
                                 </tr>
                             @empty
-                                <tr><td colspan="3" style="text-align:center;">No data available</td></tr>
+                                <tr>
+                                    <td colspan="3" class="text-center">No Data Found</td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>

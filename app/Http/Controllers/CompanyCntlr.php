@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 
 class CompanyCntlr extends Controller{
     public function getCompany( MasterService $mast ){
-        $comp = $mast->getCompany('Y')['data'] ?? [];
+        $comp = $mast->getCompany( 0, 'Y' )['data'] ?? [];
         return view('company.index', compact('comp'));
     }
 
     public function getdetails( MasterService $mast, $mode, $code=null ){
         $comp = null;
         if($code){
-            $comp = $mast->getCompany('Y')['data'][0] ?? [];
+            $comp = $mast->getCompany( $code, 'Y' )['data'][0] ?? [];
         }
         return view('company.form', compact('comp', 'mode'));
     }

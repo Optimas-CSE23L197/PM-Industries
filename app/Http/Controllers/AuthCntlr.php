@@ -30,7 +30,7 @@ class AuthCntlr extends Controller
     }
 
     public function companyLogin( MasterService $gc ){
-        $comp = $gc->getCompany( 'N' )['data'] ?? [];
+        $comp = $gc->getCompany( 0, 'N' )['data'] ?? [];
         // dd($comp);
         return view( 'login.company_login', compact('comp') );
     }
