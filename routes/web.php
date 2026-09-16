@@ -42,6 +42,7 @@ Route::middleware(['checksession'])->group(function () {
         /* ============== || Raw Item || ================ */
         Route::controller(RawItemCntlr::class)->group(function(){
             Route::get('/raw-item', 'getList')->name('rawMaterialsInventory.rawItemList');
+            Route::get('/print-raw-item-list', 'getprint')->name('rawMaterialsInventory.printRawItemList');
             Route::get('/raw-item-details/{mode}/{code?}', 'getDetails')->name('rawMaterialsInventory.rawItemDetails');
             Route::post('/save-raw-item', 'saveRawItem')->name('rawMaterialsInventory.rawItemSave');
             Route::get('/raw-item-stat-change/{code}/{aedl}', 'statRawItem')->name('rawMaterialsInventory.rawItemStatChange');

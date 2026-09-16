@@ -13,6 +13,12 @@ class RawItemCntlr extends Controller
         return view('rawMaterialsInventory.masters.rawItem.index', compact('rawItems'));
     }
 
+    public function getprint( RawItemService $ris ){
+        $resp = $ris->getList( 0, 'Y' )['data'] ?? [];
+        $compnm = session('compNmC');
+        return view('rawMaterialsInventory.masters.rawItem.print', compact('resp', 'compnm'));
+    }
+
     public function getDetails( RawItemService $ris, RawItemTypeService $rmts, $mode, $code = null ){
         $rmType = $rmts->getList( 0, 'Y' )['data'] ?? [];
         $rawItem = null;

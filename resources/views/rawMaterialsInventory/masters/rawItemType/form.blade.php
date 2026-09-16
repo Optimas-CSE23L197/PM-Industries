@@ -1,5 +1,9 @@
-@extends('rawMaterialsInventory.layout.app')
-@section('page_title_link', 'rawMaterialsInventory.rawMaterialTypeList')
+@extends('layout.app', ['dept' => 'Raw Material Inventory'])
+
+@section('page_title_link')
+    {{ Route('rawMaterialsInventory.rawMaterialTypeList') }}
+@endsection
+
 @section('page_titleH', 'Raw Item Type')
 @section('page_title', 'Details')
 

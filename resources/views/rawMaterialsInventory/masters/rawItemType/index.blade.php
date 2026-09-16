@@ -1,4 +1,4 @@
-@extends('rawMaterialsInventory.layout.app')
+@extends('layout.app', ['dept' => 'Raw Material Inventory'])
 @section('page_title', 'Raw Item Type')
 
 @section('content')
