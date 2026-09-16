@@ -33,6 +33,7 @@ Route::middleware(['checksession'])->group(function () {
         /* ============== || Raw Item Type || ================ */
         Route::controller(RawItemTypeCntlr::class)->group(function(){
             Route::get('/raw-item-type', 'index')->name('rawMaterialsInventory.rawMaterialTypeList');
+            Route::get('/print-raw-item-type-list', 'getprint')->name('rawMaterialsInventory.printRawItemTypeList');
             Route::get('/raw-item-type-details/{mode}/{code?}', 'getDetails')->name('rawMaterialsInventory.rawMaterialTypeDetails');
             Route::post('/save-raw-item-type', 'saveRawMaterialType')->name('rawMaterialsInventory.rawMaterialTypeSave');
             Route::get('/raw-item-type-stat-change/{code}/{aedl}', 'statRawMaterialType')->name('rawMaterialsInventory.rawMaterialTypeStatChange');

@@ -11,6 +11,13 @@ class RawItemTypeCntlr extends Controller{
         $rmType = $rmt->getList( 0, 'Y' )['data'] ?? [];
         return view('rawMaterialsInventory.masters.rawItemType.index', compact('rmType'));
     }
+
+    public function getprint( RawItemTypeService $rmt ){
+        $resp = $rmt->getList( 0, 'Y' )['data'] ?? [];
+        $compnm = session('compNmC');
+        return view('rawMaterialsInventory.masters.rawItemType.print', compact('resp', 'compnm'));
+    }
+
     public function getDetails( RawItemTypeService $rmt, $mode, $code = null ){
         $rmType = null;
         if($code){
