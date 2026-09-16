@@ -44,12 +44,14 @@
                         <tbody>
                             @forelse ( $prOdr as $p )
                                 @php
-                                    $status = $p['status'] ?? 'CLOSE';
+                                    $status = $p['activeyn'] ?? 'N';
                                     $btnColor = $aedl = '';
-                                    if ($status === 'OPEN') {
+                                    if ($status === 'Y') {
+                                        $status = 'Active';
                                         $btnColor = 'btn-success';
                                         $aedl = 'D';
-                                    } else {
+                                    } elseif($status === 'N') {
+                                        $status = 'Inactive';
                                         $btnColor = 'btn-danger';
                                         $aedl = 'U';
                                     }

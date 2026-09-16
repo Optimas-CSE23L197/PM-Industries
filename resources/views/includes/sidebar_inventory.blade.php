@@ -35,7 +35,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="purchase.html" class="nav-link">
+                            <a href="{{ route('rawMaterialsInventory.purchaseList') }}" class="nav-link">
                                 <i class="fas fa-caret-right nav-icon"></i>
                                 <p>Purchase</p>
                             </a>

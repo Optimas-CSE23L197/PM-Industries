@@ -2,7 +2,7 @@
 namespace App\Services\RawMaterialsInventory;
 use App\Services\ApiClient;
 
-class PurchaseOrderService{
+class PurchaseService{
     protected $api;
 
     public function __construct (ApiClient $api){

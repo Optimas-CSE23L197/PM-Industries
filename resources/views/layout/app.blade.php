@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/main.css') }}">
+    
+    @stack('css')
 </head>
 
 <body class="text-sm layout-fixed sidebar-mini sidebar-collapse">
@@ -87,7 +89,7 @@
     <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/dist/js/adminlte.min.js') }}"></script>
-    <!-- <script src="{{ asset('assets/dist/js/demo.js') }}"></script> -->
+    {{-- <script src="{{ asset('assets/dist/js/demo.js') }}"></script> --}}
 
     <!-- Select2 -->
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>

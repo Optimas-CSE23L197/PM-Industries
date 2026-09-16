@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{ AuthCntlr, CompanyCntlr };
-use App\Http\Controllers\RawMaterialsInventory\{ DashboardCntlr, RawItemTypeCntlr, RawItemCntlr, StoreCntlr, SupplierCntlr, DepartmentCntlr, OpeningStkCntlr, PurchaseOrderCntlr };
+use App\Http\Controllers\RawMaterialsInventory\{ DashboardCntlr, RawItemTypeCntlr, RawItemCntlr, StoreCntlr, SupplierCntlr, DepartmentCntlr, OpeningStkCntlr, PurchaseOrderCntlr, PurchaseCntlr };
 
 
 Route::controller(AuthCntlr::class)->group(function(){
@@ -105,13 +105,23 @@ Route::middleware(['checksession'])->group(function () {
                                     Transactions
         ========================================================================= */
         Route::prefix('/transactions')->group(function(){
+            /* ============== || Purchase Order || ================ */
             Route::controller(PurchaseOrderCntlr::class)->group(function(){
-                Route::get('/get-purchase-list', 'getList')->name('rawMaterialsInventory.purchaseOrderList');
+                Route::get('/get-purchase-order-list', 'getList')->name('rawMaterialsInventory.purchaseOrderList');
                 Route::get('/print-purchase-order-list', 'getPrint')->name('rawMaterialsInventory.printPurchaseOrderList');
                 Route::get('/purchase-order-details/{mode}/{code?}', 'getDetails')->name('rawMaterialsInventory.purchaseOrderDetails');
                 Route::post('/save-Purchase-order', 'savePurchaseOrder')->name('rawMaterialsInventory.savePurchsaeOrder');
                 Route::get('purchase-order-stat-change/{code}/{aedl}', 'sataPurchaseOrder')->name('rawMaterialsInventory.sataPurchaseOrder');
             });
+            /* ============== || Purchase Order || ================ */
+
+            /* ============== || Purchase || ================ */
+            Route::controller(PurchaseCntlr::class)->group(function(){
+                Route::get('/get-purchase-list', 'getList')->name('rawMaterialsInventory.purchaseList');
+                Route::get('/print-purchase-list', 'getPrint')->name('rawMaterialsInventory.printPurchaseList');
+                Route::get('/purchase-details/{mode}/{code?}', 'getDetails')->name('rawMaterialsInventory.purchaseDetails');
+            });
+            /* ============== || Purchase || ================ */
         });
         /* =====================================================================
                                     Transactions

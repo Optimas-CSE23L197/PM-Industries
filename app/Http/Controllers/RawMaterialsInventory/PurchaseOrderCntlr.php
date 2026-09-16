@@ -4,7 +4,7 @@ namespace App\Http\Controllers\RawMaterialsInventory;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\RawMaterialsInventory\{ PurchaseOrderService, SupplierService };
+use App\Services\RawMaterialsInventory\{ PurchaseOrderService, SupplierService, RawItemService };
 
 class PurchaseOrderCntlr extends Controller
 {
@@ -19,20 +19,22 @@ class PurchaseOrderCntlr extends Controller
         return view('rawMaterialsInventory.transactions.purchaseOrder.print', compact('resp', 'compnm'));
     }
     
-    public function getDetails( PurchaseOrderService $pos, SupplierService $ss, $mode, $code=0 ){
-        $splr = $ss->getList( 0, 'Y')['data'] ?? [];
+    public function getDetails( PurchaseOrderService $pos, SupplierService $ss, RawItemService $ris, $mode, $code=0 ){
+        $splr = $ss->getList( 0, 'N')['data'] ?? [];
+        $rawItems = $ris->getList( 0, 'N' )['data'] ?? [];
         $prOdr = null;
         if($code){
             $prOdr = $pos->getList( session('compCdC'), $code, 'Y')['data'] ?? [];
         }
         // dd($prOdr);
-        return view('rawMaterialsInventory.transactions.purchaseOrder.form', compact('prOdr','mode', 'splr'));
+        return view('rawMaterialsInventory.transactions.purchaseOrder.form', compact('prOdr','mode', 'splr', 'rawItems'));
     }
     
     public function savePurchaseOrder( Request $r, PurchaseOrderService $pos ){
         try {
+            // dd($r->all());
             $payload = $r->all();
-            $resp = $pos->savePurchaseOrder( $payload );
+            $resp = $pos->savePurchaseOrder( session('compCdC'), session('userCdC'), $payload );
             return response()->json( $resp );
         } catch ( \Exception $e ) {
             return response()->json(['error'=>true, 'message'=>$e->getMessage()], 500);

@@ -50,8 +50,8 @@
                             <td style="text-align:right;">{{ $res['gstamt'] ?? '' }}</td>
                             <td style="text-align:right;">{{ $res['roundoff'] ?? '' }}</td>
                             <td style="text-align:right;">{{ $res['netamt'] ?? '' }}</td>
-                            <td style="color: {{ ($res['status'] ?? 'OPEN') === 'OPEN' ? 'green' : 'red' }}; text-align: center;">
-                                {{ $res['status'] ?? 'OPEN' }}
+                            <td style="color: {{ ($res['activeyn'] ?? 'N') === 'Y' ? 'green' : 'red' }}; text-align: center;">
+                                {{ (($res['activeyn'] ?? 'N') === 'Y') ? 'Active' : 'Inactive' }}
                             </td>
                         </tr>
                     @empty

@@ -342,11 +342,11 @@
             <div class="input company-input">
                 <i class="fas fa-building"></i>
                 <select name="company_id" id="company_id" required>
-                    <option selected disabled>Choose Comopany</option>
+                    <option value="" selected disabled>Choose Comopany</option>
                     @forelse($comp as $c)
                         <option value="{{ $c['code'].'|'.$c['name'] }}">{{ $c['name'] }}</option>
                     @empty
-                        <option>NO comopany available</option>
+                        <option>No comopany available</option>
                     @endforelse
                 </select>
             </div>
@@ -380,6 +380,14 @@
     </div>
 
     <script>
+        $(document).ready(function () {
+            function checkCompany() {
+                $('#loginBtn').prop('disabled', $('#company_id').val() === '');
+            }
+            $('#company_id').on('change', checkCompany);
+            checkCompany();
+        });
+
         document.getElementById("loginForm").addEventListener("submit", function (e) {
             const company = document.getElementById("company_id");
             const btn = document.getElementById("loginBtn");
