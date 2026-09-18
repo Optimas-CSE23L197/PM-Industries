@@ -93,7 +93,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="bom.html" class="nav-link">
+                            <a href="{{ Route('bom') }}" class="nav-link">
                                 <i class="fas fa-caret-right nav-icon"></i>
                                 <p>Bill of Materials (BOM)</p>
                             </a>

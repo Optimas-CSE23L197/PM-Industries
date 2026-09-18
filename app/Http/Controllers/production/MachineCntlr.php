@@ -17,7 +17,7 @@ class MachineCntlr extends Controller
 
     public function machineDetails(MachineService $ms, $vwedt = null, $code = null)
     {
-        $machine = '';
+        $machine = [];
         if ($code) {
             $machine = $ms->getMachineList($code, session('compCdC') ?? 1, 'N');
             $machine = $machine['data'][0] ?? [];
@@ -57,5 +57,13 @@ class MachineCntlr extends Controller
             return redirect()->Route('machine')->with('success', $res['message']);
         else
             return redirect()->Route('machine')->with('error', $res['message']);
+    }
+
+    public function printMachineList(MachineService $ms)
+    {
+        $machines = $ms->getMachineList(0, session('compCdC') ?? 1, 'Y');
+        $machines = $machines['data'] ?? [];
+
+        return view('productions.masters.machine.print', compact('machines'));
     }
 }

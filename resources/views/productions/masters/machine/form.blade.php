@@ -1,4 +1,4 @@
-@extends('productions.layout.app')
+@extends('layout.app', ['dept' => 'Production'])
 @section('page_title_link', route('machine'))
 @section('page_titleH', 'Machine')
 @section('page_title', 'Details')
@@ -21,14 +21,16 @@
                             <div class="col-md-3">
                                 <input type="text" name="name" id="name"
                                        class="form-control form-control-sm" autofocus required
-                                       value="{{ old('name', $machine['name'] ?? '') }}"/>
+                                       value="{{ $machine['name'] ?? '' }}"
+                                       {{ $vwedt == 1 ? 'disabled' : '' }}/>
                             </div>
 
                             <label for="model_no" class="col-md-2">Model No.</label>
                             <div class="col-md-3">
                                 <input type="text" name="model_no" id="model_no"
                                        class="form-control form-control-sm"
-                                       value="{{ old('model_no', $machine['model_no'] ?? '') }}"/>
+                                       value="{{ $machine['model_no'] ?? '' }}"
+                                       {{ $vwedt == 1 ? 'disabled' : '' }}/>
                             </div>
                         </div>
 
@@ -38,14 +40,16 @@
                             <div class="col-md-3">
                                 <input type="text" name="serial_no" id="serial_no"
                                        class="form-control form-control-sm"
-                                       value="{{ old('serial_no', $machine['serial_no'] ?? '') }}"/>
+                                       value="{{ $machine['serial_no'] ?? '' }}"
+                                       {{ $vwedt == 1 ? 'disabled' : '' }}/>
                             </div>
 
                             <label for="installation_date" class="col-md-2">Installation Date</label>
                             <div class="col-md-3">
                                 <input type="date" name="installation_date" id="installation_date"
                                        class="form-control form-control-sm"
-                                       value="{{ old('installation_date', $machine['installation_date'] ?? '') }}"/>
+                                       value="{{ $machine['installation_date'] ?? '' }}"
+                                       {{ $vwedt == 1 ? 'disabled' : '' }}/>
                             </div>
                         </div>
 
@@ -55,20 +59,22 @@
                             <div class="col-md-3">
                                 <input type="number" name="maintenance_period_days" id="maintenance_period_days"
                                        class="form-control form-control-sm"
-                                       value="{{ old('maintenance_period_days', $machine['maintenance_period_days'] ?? '') }}"/>
+                                       value="{{ $machine['maintenance_period_days'] ?? '' }}"
+                                       {{ $vwedt == 1 ? 'disabled' : '' }}/>
                             </div>
 
                             <label for="next_maintenance_date" class="col-md-2">Next Maintenance Date</label>
                             <div class="col-md-3">
                                 <input type="date" name="next_maintenance_date" id="next_maintenance_date"
                                        class="form-control form-control-sm"
-                                       value="{{ old('next_maintenance_date', $machine['next_maintenance_date'] ?? '') }}"/>
+                                       value="{{ $machine['next_maintenance_date'] ?? '' }}"
+                                       {{ $vwedt == 1 ? 'disabled' : '' }}/>
                             </div>
                         </div>
 
-                        <button type="submit" id="saveBtn" class="btn btn-sm btn-dark float-right">
+                        <button type="submit" id="saveBtn" class="btn btn-sm btn-dark float-right" {{ $vwedt == 1 ? 'hidden' : '' }}>
                             <i class="fas fa-save mr-1"></i>
-                            Save
+                            {{ $vwedt == 2 ? 'Update' : 'Save' }}
                         </button>
                     </form>
                 </div>

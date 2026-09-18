@@ -17,7 +17,7 @@ class ItemSizeCntlr extends Controller
 
     public function itemSizeDetails(ItemSizeService $iss, $vwedt = null, $code = null)
     {
-        $itemSize = '';
+        $itemSize = [];
         if ($code) {
             $itemSize = $iss->getItemSizeList($code, session('compCdC') ?? 1, 'N');
             $itemSize = $itemSize['data'][0] ?? [];
@@ -43,5 +43,13 @@ class ItemSizeCntlr extends Controller
             return redirect()->Route('itemSize')->with('success', $res['message']);
         else
             return redirect()->Route('itemSize')->with('error', $res['message']);
+    }
+
+    public function printItemSizeList(ItemSizeService $iss)
+    {
+        $itemSizes = $iss->getItemSizeList(0, session('compCdC') ?? 1, 'Y');
+        $itemSizes = $itemSizes['data'] ?? [];
+
+        return view('productions.masters.item_size.print', compact('itemSizes'));
     }
 }

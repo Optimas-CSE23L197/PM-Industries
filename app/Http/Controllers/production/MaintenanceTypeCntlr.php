@@ -17,7 +17,7 @@ class MaintenanceTypeCntlr extends Controller
 
     public function maintenanceTypeDetails(MaintenanceTypeService $mts, $vwedt = null, $code = null)
     {
-        $maintenanceType = '';
+        $maintenanceType = [];
         if ($code) {
             $maintenanceType = $mts->getMaintenanceTypeList($code, session('compCdC') ?? 1, 'N');
             $maintenanceType = $maintenanceType['data'][0] ?? [];
@@ -43,5 +43,13 @@ class MaintenanceTypeCntlr extends Controller
             return redirect()->Route('maintenanceType')->with('success', $res['message']);
         else
             return redirect()->Route('maintenanceType')->with('error', $res['message']);
+    }
+
+    public function printMaintenanceTypeList(MaintenanceTypeService $mts)
+    {
+        $maintenanceTypes = $mts->getMaintenanceTypeList(0, session('compCdC') ?? 1, 'Y');
+        $maintenanceTypes = $maintenanceTypes['data'] ?? [];
+
+        return view('productions.masters.maintenance_type.print', compact('maintenanceTypes'));
     }
 }

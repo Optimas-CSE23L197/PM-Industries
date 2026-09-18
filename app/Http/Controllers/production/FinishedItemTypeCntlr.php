@@ -17,7 +17,7 @@ class FinishedItemTypeCntlr extends Controller
 
     public function finishedItemTypeDetails(FinishedItemTypeService $fits, $vwedt = null, $code = null)
     {
-        $finishedItemType = '';
+        $finishedItemType = [];
         if ($code) {
             $finishedItemType = $fits->getFinishedItemTypeList($code, session('compCdC') ?? 1, 'N');
             $finishedItemType = $finishedItemType['data'][0] ?? [];
@@ -43,5 +43,13 @@ class FinishedItemTypeCntlr extends Controller
             return redirect()->Route('finishedItemType')->with('success', $res['message']);
         else
             return redirect()->Route('finishedItemType')->with('error', $res['message']);
+    }
+
+    public function printFinishedItemTypeList(FinishedItemTypeService $fits)
+    {
+        $finishedItemTypes = $fits->getFinishedItemTypeList(0, session('compCdC') ?? 1, 'Y');
+        $finishedItemTypes = $finishedItemTypes['data'] ?? [];
+
+        return view('productions.masters.finished_item_type.print', compact('finishedItemTypes'));
     }
 }

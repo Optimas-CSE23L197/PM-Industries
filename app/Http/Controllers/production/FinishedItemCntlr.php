@@ -17,7 +17,7 @@ class FinishedItemCntlr extends Controller
 
     public function finishedItemDetails(FinishedItemService $fis, $vwedt = null, $code = null)
     {
-        $finishedItem = '';
+        $finishedItem = [];
         if ($code) {
             $finishedItem = $fis->getFinishedItemList($code, session('compCdC') ?? 1, 'N');
             $finishedItem = $finishedItem['data'][0] ?? [];
@@ -45,5 +45,13 @@ class FinishedItemCntlr extends Controller
             return redirect()->Route('finishedItem')->with('success', $res['message']);
         else
             return redirect()->Route('finishedItem')->with('error', $res['message']);
+    }
+
+    public function printFinishedItemList(FinishedItemService $fis)
+    {
+        $finishedItems = $fis->getFinishedItemList(0, session('compCdC') ?? 1, 'Y');
+        $finishedItems = $finishedItems['data'] ?? [];
+
+        return view('productions.masters.finished_item.print', compact('finishedItems'));
     }
 }

@@ -1,4 +1,4 @@
-@extends('productions.layout.app')
+@extends('layout.app', ['dept' => 'Production'])
 @section('page_title_link', route('itemSize'))
 @section('page_titleH', 'Item Size')
 @section('page_title', 'Details')
@@ -20,13 +20,14 @@
                             <div class="col-md-4">
                                 <input type="text" name="name" id="name"
                                        class="form-control form-control-sm" autofocus required
-                                       value="{{ old('name', $itemSize['name'] ?? '') }}"/>
+                                       value="{{ $itemSize['name'] ?? '' }}"
+                                       {{ $vwedt == 1 ? 'disabled' : '' }}/>
                             </div>
                         </div>
 
-                        <button type="submit" id="saveBtn" class="btn btn-sm btn-dark float-right">
+                        <button type="submit" id="saveBtn" class="btn btn-sm btn-dark float-right" {{ $vwedt == 1 ? 'hidden' : '' }}>
                             <i class="fas fa-save mr-1"></i>
-                            Save
+                            {{ $vwedt == 2 ? 'Update' : 'Save' }}
                         </button>
                     </form>
                 </div>

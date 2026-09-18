@@ -1,4 +1,4 @@
-@extends('productions.layout.app')
+@extends('layout.app', ['dept' => 'Production'])
 @section('page_title', 'Finished Item Type')
 
 @section('content')
@@ -8,6 +8,12 @@
             <div class="card">
                 <div class="card-header py-1">
                     <label for="" class="card-title">Finished Item Type</label>
+
+                    <button class="btn btn-sm btn-secondary float-right ml-1"
+                        onclick="location.href='{{ Route('production.printFinishedItemTypeList') }}'">
+                        <i class="fas fa-print mr-1"></i> Print
+                    </button>
+
                     <button class="btn btn-sm btn-dark float-right"
                         onclick="location.href='{{ route('finishedItemTypeDetails') }}';">
                         <i class="fas fa-plus-circle mr-1"></i>

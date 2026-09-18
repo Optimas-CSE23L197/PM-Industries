@@ -26,13 +26,19 @@
     <div class="wrapper">
         <div id="loader"></div>
         <div id="header-container">
-            @include('includes.header')
+            @include('includes.header_common')
         </div>
         
         <div id="sidebar-container">
             @if ( $dept === 'Raw Material Inventory' )
                 @include('includes.sidebar_inventory')
                 <script src="{{ asset('assets/dist/js/sidebar_inventory.js') }}"></script>
+            @elseif ($dept === 'Production')
+                @include('includes.sidebar_production')
+                <script src="{{ asset('assets/dist/js/sidebar_production.js') }}"></script>
+            @elseif ($dept === 'CRM')
+                @include('includes.sidebar_crm')
+                <script src="{{ asset('assets/dist/js/sidebar_crm.js') }}"></script>
             @endif
         </div>
 
@@ -106,6 +112,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/function.js') }}"></script>
+    <script src="{{ asset('assets/print.js') }}"></script>
+
 
     <!-- Datatables -->
     <script>

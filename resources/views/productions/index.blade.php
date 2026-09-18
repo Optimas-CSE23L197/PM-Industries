@@ -1,4 +1,4 @@
-@extends('productions.layout.app')
+@extends('layout.app', ['dept' => 'Production'])
 @section('page_title', 'Dashboard - Production')
 
 @section('content')
