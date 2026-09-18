@@ -8,7 +8,7 @@ use App\Services\RawMaterialsInventory\SupplierService;
 
 class SupplierCntlr extends Controller
 {
-    public function getList( SupplierService $ss){
+    public function getList( SupplierService $ss ){
         $splr = $ss->getList( 0, 'Y')['data'] ?? [];
         return view('rawMaterialsInventory.masters.supplier.index', compact('splr'));
     }

@@ -27,25 +27,44 @@
                                 <th style="width:15%">Purchase No.</th>
                                 <th style="width:40%">Supplier</th>
                                 <th style="width:15%">Supplier Bill No.</th>
-                                <th style="width:10%">Amount</th>
+                                <th style="width:10%; text-align:right;">Amount</th>
                                 <th style="width:10%">Status</th>
                                 <th style="width:10%">Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            {{-- @forelse ( as ) --}}
+                            @forelse ( $purc as $p )
+                                @php
+                                    $status = $p['activeyn'] ?? 'N';
+                                    $btnColor = $aedl = '';
+                                    if ($status === 'Y') {
+                                        $status = 'Active';
+                                        $btnColor = 'btn-success';
+                                        $aedl = 'D';
+                                    } elseif($status === 'N') {
+                                        $status = 'Inactive';
+                                        $btnColor = 'btn-danger';
+                                        $aedl = 'U';
+                                    }
+                                @endphp
+
                                <tr>
-                                    <td>PURC/26-27/000001</td>
-                                    <td>Supplier 1</td>
-                                    <td>000001</td>
-                                    <td>1000.00</td>
-                                    <td><button class="btn btn-xs btn-success btn-block">Active</button></td>
+                                    <td>{{ $p['tranno'] ?? '' }}</td>
+                                    <td>{{ $p['supplier_name'] ?? '' }}</td>
+                                    <td>{{ $p['partybillno'] ?? '' }}</td>
+                                    <td style="text-align:right">{{ $p['basic'] ?? '' }}</td>
+                                    <td>
+                                        <button type='button' class="btn btn-xs {{ $btnColor }} btn-block"
+                                            onclick="mtd.show_msg(2, '{{ Route('rawMaterialsInventory.statPurchase', ['code' => $p['intno'] ?? 0, 'aedl' => $aedl]) }}', 'Are you sure to change its status..?', 2);">
+                                            {{ $status }}
+                                        </button>
+                                    </td>
                                     <td class="dropdown text-center">
                                         <i class="fas fa-bars ml-2 mr-1" data-toggle="dropdown" href="#"
                                             style="cursor:pointer"></i>
                                         <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                                            <a href="{{ Route('rawMaterialsInventory.purchaseDetails', ['mode'=>'view']) }}" class="dropdown-item">
+                                            <a href="{{ Route('rawMaterialsInventory.purchaseDetails', ['mode'=>'view', 'code'=>$p['intno'] ?? 0]) }}" class="dropdown-item">
                                                 <div class="media">
                                                     <div class="media-body">
                                                         <p>View</p>
@@ -53,7 +72,7 @@
                                                 </div>
                                             </a>
                                             <div class="dropdown-divider"></div>
-                                            <a href="{{ Route('rawMaterialsInventory.purchaseDetails', ['mode'=>'edit']) }}" class="dropdown-item">
+                                            <a href="{{ Route('rawMaterialsInventory.purchaseDetails', ['mode'=>'edit', 'code'=>$p['intno'] ?? 0]) }}" class="dropdown-item">
                                                 <div class="media">
                                                     <div class="media-body">
                                                         <p>Edit</p>
@@ -63,9 +82,11 @@
                                         </div>
                                     </td>
                                 </tr>
-                            {{-- @empty
-                                <tr><td colspan="6" style="text-align:center">No data found</td></tr>
-                            @endforelse --}}
+                            @empty
+                                <tr>
+                                    <td colspan="6" style="text-align:center">No data found</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

@@ -1,5 +1,5 @@
 @extends('layout.app', ['dept' => 'Raw Material Inventory'])
-@section('page_title', 'Purchase Order')
+@section('page_title', 'Issue To Departments')
 
 @section('content')
 
@@ -7,44 +7,34 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header py-1">
-                    <label for="" class="card-title">Purchase Order</label>
+                    <label for="" class="card-title">Issue to Departments</label>
                     <div class="float-right">
                         <button class="btn btn-sm btn-secondary"
-                            onclick="location.href='{{ Route('rawMaterialsInventory.printPurchaseOrderList') }}'">
+                            onclick="location.href='{{ Route('rawMaterialsInventory.printIssueToDeptList') }}'">
                             <i class="fas fa-print mr-1"></i> Print 
                         </button>
                         
                         <button class="btn btn-sm btn-dark"
-                            onclick="location.href='{{ Route('rawMaterialsInventory.purchaseOrderDetails', 'new') }}'">
+                            onclick="location.href='{{ Route('rawMaterialsInventory.issueToDeptDetails', 'new') }}'">
                             <i class="fas fa-plus-circle mr-1"></i> Add New 
                         </button>
                     </div>
-
-                    {{-- <div class="btn-group float-right mr-2">
-                        <button class="btn btn-sm btn-dark"><i class="fas fa-caret-left"></i></button>
-                        <input type="date" class="form-control form-control-sm date_today">
-                        <button class="btn btn-sm btn-dark"><i class="fas fa-caret-right"></i></button>
-                    </div> --}}
                 </div>
                 <div class="card-body">
                     <table id="depttable" class="table table-sm table-bordered text-xs">
                         <thead class="thead-light">
                             <tr>
-                                <th style="width:10%">Tran No.</th>
-                                <th style="width:20%">Supplier</th>
-                                <th style="width:10%">Exp. Date</th>
-                                <th style="width:10%;text-align:right;">Gross Amount</th>
-                                <th style="width:10%;text-align:right;">GST Amount</th>
-                                <th style="width:10%;text-align:right;">Round off Amount</th>
-                                <th style="width:10%;text-align:right;">Net Amount</th>
-                                <th style="width:10%; text-align:center;">Status</th>
-                                <th style="width:10%; text-align:center;">Action</th>
+                                <th style="width:20%">Issue No.</th>
+                                <th style="width:30%">From Department</th>
+                                <th style="width:30%">To Department</th>
+                                <th style="width:10%">Status</th>
+                                <th style="width:10%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ( $prOdr as $p )
+                            @forelse ( $ir as $i )
                                 @php
-                                    $status = $p['activeyn'] ?? 'N';
+                                    $status = $i['activeyn'] ?? 'N';
                                     $btnColor = $aedl = '';
                                     if ($status === 'Y') {
                                         $status = 'Active';
@@ -56,17 +46,14 @@
                                         $aedl = 'U';
                                     }
                                 @endphp
+                                
                                 <tr>
-                                    <td>{{ $p['po_no'] ?? '' }}</td>
-                                    <td>{{ $p['supplier_name'] ?? '' }}</td>
-                                    <td>{{ $p['po_date'] ?? '' }}</td>
-                                    <td style="text-align:right;">{{ $p['gross'] ?? '' }}</td>
-                                    <td style="text-align:right;">{{ $p['gstamt'] ?? '' }}</td>
-                                    <td style="text-align:right;">{{ $p['roundoff'] ?? '' }}</td>
-                                    <td style="text-align:right;">{{ $p['netamt'] ?? '' }}</td>
+                                    <td>{{ $i['issue_no'] ?? '' }}</td>
+                                    <td>{{ $i['from_department_name'] ?? '' }}</td>
+                                    <td>{{ $i['to_department_name'] ?? '' }}</td>
                                     <td>
                                         <button type='button' class="btn btn-xs {{ $btnColor }} btn-block"
-                                            onclick="mtd.show_msg(2, '{{ Route('rawMaterialsInventory.statPurchaseOrder', ['code' => $p['intno'], 'aedl' => $aedl]) }}', 'Are you sure to change its status..?', 2);">
+                                            onclick="mtd.show_msg(2, '{{ Route('rawMaterialsInventory.statIssueToDept', ['code' => $i['intno'] ?? 0, 'aedl' => $aedl]) }}', 'Are you sure to change its status..?', 2);">
                                             {{ $status }}
                                         </button>
                                     </td>
@@ -74,7 +61,7 @@
                                         <i class="fas fa-bars ml-2 mr-1" data-toggle="dropdown" href="#"
                                             style="cursor:pointer"></i>
                                         <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                                            <a href="{{ Route('rawMaterialsInventory.purchaseOrderDetails', ['mode'=>'view', 'code'=>$p['intno'] ?? 0]) }}" class="dropdown-item">
+                                            <a href="{{ Route('rawMaterialsInventory.issueToDeptDetails', ['mode'=>'view', 'code'=>$i['intno']]) }}" class="dropdown-item">
                                                 <div class="media">
                                                     <div class="media-body">
                                                         <p>View</p>
@@ -82,26 +69,20 @@
                                                 </div>
                                             </a>
                                             <div class="dropdown-divider"></div>
-                                            <a href="{{ Route('rawMaterialsInventory.purchaseOrderDetails', ['mode'=>'edit', 'code'=>$p['intno'] ?? 0]) }}" class="dropdown-item">
+                                            <a href="{{ Route('rawMaterialsInventory.issueToDeptDetails', ['mode'=>'edit', 'code'=>$i['intno']]) }}" class="dropdown-item">
                                                 <div class="media">
                                                     <div class="media-body">
                                                         <p>Edit</p>
                                                     </div>
                                                 </div>
                                             </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a href="purchase_details.html" class="dropdown-item">
-                                                <div class="media">
-                                                    <div class="media-body">
-                                                        <p>Go to Purchase</p>
-                                                    </div>
-                                                </div>
-                                            </a>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> 
                             @empty
-                                <tr><td colspan="9" style="text-align:center">No data available</td></tr>
+                                <tr>
+                                    <td colspan="5" style="text-align:center"></td>
+                                </tr>
                             @endforelse
                             
                         </tbody>

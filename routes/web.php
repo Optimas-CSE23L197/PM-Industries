@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{ AuthCntlr, CompanyCntlr };
-use App\Http\Controllers\RawMaterialsInventory\{ DashboardCntlr, RawItemTypeCntlr, RawItemCntlr, StoreCntlr, SupplierCntlr, DepartmentCntlr, OpeningStkCntlr, PurchaseOrderCntlr, PurchaseCntlr };
+use App\Http\Controllers\RawMaterialsInventory\{ DashboardCntlr, RawItemTypeCntlr, RawItemCntlr, StoreCntlr, SupplierCntlr, DepartmentCntlr, OpeningStkCntlr, PurchaseOrderCntlr, PurchaseCntlr, PurchaseReturnCntlr, IssueToDeptCntlr, ReturnFrmDeptCntlr, StockAdjCntlr };
 
 
 Route::controller(AuthCntlr::class)->group(function(){
@@ -111,7 +111,7 @@ Route::middleware(['checksession'])->group(function () {
                 Route::get('/print-purchase-order-list', 'getPrint')->name('rawMaterialsInventory.printPurchaseOrderList');
                 Route::get('/purchase-order-details/{mode}/{code?}', 'getDetails')->name('rawMaterialsInventory.purchaseOrderDetails');
                 Route::post('/save-Purchase-order', 'savePurchaseOrder')->name('rawMaterialsInventory.savePurchsaeOrder');
-                Route::get('purchase-order-stat-change/{code}/{aedl}', 'sataPurchaseOrder')->name('rawMaterialsInventory.sataPurchaseOrder');
+                Route::get('purchase-order-stat-change/{code}/{aedl}', 'statPurchaseOrder')->name('rawMaterialsInventory.statPurchaseOrder');
             });
             /* ============== || Purchase Order || ================ */
 
@@ -120,8 +120,48 @@ Route::middleware(['checksession'])->group(function () {
                 Route::get('/get-purchase-list', 'getList')->name('rawMaterialsInventory.purchaseList');
                 Route::get('/print-purchase-list', 'getPrint')->name('rawMaterialsInventory.printPurchaseList');
                 Route::get('/purchase-details/{mode}/{code?}', 'getDetails')->name('rawMaterialsInventory.purchaseDetails');
+                Route::post('/save-purchase', 'savePurchase')->name('rawMaterialsInventory.savePurchase');
+                Route::get('/purchase-stat-change/{code}/{aedl}', 'statPurchase')->name('rawMaterialsInventory.statPurchase');
             });
             /* ============== || Purchase || ================ */
+
+            /* ============== || Purchase Return || ================ */
+            Route::controller(PurchaseReturnCntlr::class)->group(function(){
+                Route::get('/get-purchase-return-list', 'getList')->name('rawMaterialsInventory.purchaseRtnList');
+                Route::get('/print-purchase-return-list', 'getPrint')->name('rawMaterialsInventory.printPurchaseRtnList');
+                Route::get('/purchase-return-details/{mode}/{code?}', 'getDetails')->name('rawMaterialsInventory.purchaseRtnDetails');
+            });
+            /* ============== || Purchase Return || ================ */
+
+            /* ============== || Issue To Department || ================ */
+            Route::controller(IssueToDeptCntlr::class)->group(function(){
+                Route::get('/get-issue-to-department-list', 'getList')->name('rawMaterialsInventory.issueToDeptList');
+                Route::get('/print-issue-to-department-list', 'getPrint')->name('rawMaterialsInventory.printIssueToDeptList');
+                Route::get('/issue-to-department-details/{mode}/{code?}', 'getDetails')->name('rawMaterialsInventory.issueToDeptDetails');
+                Route::post('/save-issue-to-department', 'saveIssuetoDept')->name('rawMaterialsInventory.saveIssuetoDept');
+                Route::get('/issue-to-department-stat-change/{code}/{aedl}', 'statIssueToDept')->name('rawMaterialsInventory.statIssueToDept');
+            });
+            /* ============== || Issue to department || ================ */
+
+            /* ============== || Return From Department || ================ */
+            Route::controller(ReturnFrmDeptCntlr::class)->group(function(){
+                Route::get('/get-return-from-department-list', 'getList')->name('rawMaterialsInventory.rtnFrmDeptList');
+                Route::get('/print-return-from-department-list', 'getPrint')->name('rawMaterialsInventory.printRtnFrmDeptList');
+                Route::get('/return-from-department-details/{mode}/{code?}', 'getDetails')->name('rawMaterialsInventory.rtnFrmDeptDetails');
+                Route::post('/save-return-from-department', 'saveRtnfrmDept')->name('rawMaterialsInventory.saveRtnfrmDept');
+                Route::get('/return-from-department-stat-change/{code}/{aedl}', 'statRtnFrmDept')->name('rawMaterialsInventory.statRtnFrmDept');
+            });
+            /* ============== || Return From Department || ================ */
+
+            /* ================ || Stock Adjustment || ================== */
+            Route::controller(StockAdjCntlr::class)->group(function(){
+                Route::get('/get-stock-adjustment-list', 'getList')->name('rawMaterialsInventory.stkAdjList');
+                Route::get('/print-stock-adjustment-list', 'getPrint')->name('rawMaterialsInventory.printStkAdjList');
+                Route::get('/stock-adjustment-details/{mode}/{code?}', 'getDetails')->name('rawMaterialsInventory.stkAdjDetails');
+                Route::post('/save-stock-adjustment', 'saveStkAdj')->name('rawMaterialsInventory.saveStkAdj');
+                Route::get('/stock-adjustment-stat-change/{code}/{aedl}', 'statStkAdj')->name('rawMaterialsInventory.statStkAdj');
+            });
+            /* ================ || Stock Adjustment || ================== */
         });
         /* =====================================================================
                                     Transactions

@@ -9,19 +9,19 @@ class PurchaseService{
         $this->api = $api;
     }
 
-    public function getList( $compcd, $code, $showall){
-        // dd($code);
+    public function getList( $trantype, $intno, $showall){
+        // dd($intno);
         $param = [
                     'aedl' => 'L',
-                    'compcd'=> $compcd,
-                    'intno' => $code,
+                    'trantype'=> $trantype,
+                    'intno' => $intno,
                     'showall' => $showall
                  ];
         // dd($param);
-        return $this->api->get('purchase_order.php', $param);
+        return $this->api->get('salepurc.php', $param);
     }
 
-    public function savePurchaseOrder( $compcd,$usercd, array $payload ){
+    public function savePurchase( $compcd,$usercd, array $payload ){
         $aedl = $payload['intno'] ? 'E' : 'A';
         $param = [
                     'aedl' => $aedl,
@@ -41,15 +41,15 @@ class PurchaseService{
                     'usercd'=> $usercd,
                     'activeyn' => $payload['activeyn'] ?? 'Y'
                  ];
-        return $this->api->get('purchase_order.php', $param);
+        return $this->api->get('salepurc.php', $param);
     }
 
-    public function sataPurchaseOrder( $compcd, $code, $aedl ){
+    public function sataPurchase( $trantype, $code, $aedl ){
         $param = [
                     'aedl' => $aedl,
-                    'compcd' => $compcd,
+                    'trantype' => $trantype,
                     'intno' => $code
                  ];
-        return $this->api->get('purchase_order.php', $param);
+        return $this->api->get('salepurc.php', $param);
     }
 }

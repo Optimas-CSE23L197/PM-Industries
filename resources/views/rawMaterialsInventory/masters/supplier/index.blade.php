@@ -2,6 +2,7 @@
 @section('page_title', 'Supplier')
 
 @section('content')
+
     <section class="content mt-3">
         <div class="container-fluid">
             <div class="card">

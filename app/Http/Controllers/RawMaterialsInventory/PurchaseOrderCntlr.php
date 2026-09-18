@@ -41,8 +41,8 @@ class PurchaseOrderCntlr extends Controller
         }
     }
 
-    public function sataPurchaseOrder( PurchaseOrderService $pos, $code, $aedl ){
-        $res = $pos->sataPurchaseOrder( session('compCdC'), $code, $aedl );
+    public function statPurchaseOrder( PurchaseOrderService $pos, $code, $aedl ){
+        $res = $pos->statPurchaseOrder( session('compCdC'), $code, $aedl );
         if(!$res['error'])
             return redirect()->Route('rawMaterialsInventory.purchaseOrderList')->with('success', $res['message']);
         else

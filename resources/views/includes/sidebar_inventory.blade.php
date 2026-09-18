@@ -41,25 +41,25 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="purchase_return.html" class="nav-link">
+                            <a href="{{ route('rawMaterialsInventory.purchaseRtnList') }}" class="nav-link">
                                 <i class="fas fa-caret-right nav-icon"></i>
                                 <p>Purchase Return</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="issue.html" class="nav-link">
+                            <a href="{{ route('rawMaterialsInventory.issueToDeptList') }}" class="nav-link">
                                 <i class="fas fa-caret-right nav-icon"></i>
                                 <p>Issue to Departments</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="return.html" class="nav-link">
+                            <a href="{{ route('rawMaterialsInventory.rtnFrmDeptList') }}" class="nav-link">
                                 <i class="fas fa-caret-right nav-icon"></i>
                                 <p>Return from Departments</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="stock_adjustment.html" class="nav-link">
+                            <a href="{{ route('rawMaterialsInventory.stkAdjList') }}" class="nav-link">
                                 <i class="fas fa-caret-right nav-icon"></i>
                                 <p>Stock Adjustment</p>
                             </a>

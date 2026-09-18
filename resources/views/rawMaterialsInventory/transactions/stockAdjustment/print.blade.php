@@ -1,16 +1,16 @@
 @extends('layout.app', ['dept' => 'Raw Material Inventory'])
 
 @section('page_title_link')
-    {{ route('rawMaterialsInventory.purchaseOrderList') }}
+    {{ route('rawMaterialsInventory.stkAdjList') }}
 @endsection
 
-@section('page_titleH', 'Purchase Order')
+@section('page_titleH', 'Stock Adjustment')
 @section('page_title', 'Print')
 
 @section('content')
     <div class="card">
         <div class="card-header py-1">
-            <label class="card-title">Purchase Order</label>
+            <label class="card-title">Stock Adjustment</label>
             @include('includes.print_btn')
         </div>
         <div class="card-body print">
@@ -19,23 +19,19 @@
                 <h3 style="margin: 0; font-weight: bold; letter-spacing: 1px">
                     {{ $compnm ?? 'PM-Industries' }}
                 </h3>
-                <h5 style="margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; color: #343a40;">Purchase Order Transaction List</h5>
+                <h5 style="margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; color: #343a40;">Stock Adjustment Master List</h5>
             </div>
             {{-- company header end --}}
 
             <table class="table table-bordered" width="100%" border="1"
-                data-tableName="@php echo 'Purchase-Order-Transaction_'.date('dmHis'); @endphp" data-pageO="p"
+                data-tableName="@php echo 'Stock-Adjustment-Master_'.date('dmHis'); @endphp" data-pageO="p"
                 data-pdfmode="download" cellspacing="0" cellpadding="4">
                 <thead>
                     <tr style="background-color: #343a40; color: #fff;">
-                        <th style="width:5%; text-align: center;">Sl. No</th>
-                        <th style="width:15%">Tran No.</th>
-                        <th style="width:20%">Supplier</th>
-                        <th style="width:10%">Exp. Date</th>
-                        <th style="width:10%;text-align:right;">Gross Amount</th>
-                        <th style="width:10%;text-align:right;">GST Amount</th>
-                        <th style="width:10%;text-align:right;">Round off Amount</th>
-                        <th style="width:10%;text-align:right;">Net Amount</th>
+                        <th style="width:8%; text-align: center;">Sl. No</th>
+                        <th style="width:27%">Adjustment No.</th>
+                        <th style="width:15%">Department</th>
+                        <th style="width:40%">Reason</th>
                         <th style="width:10%; text-align: center;">Status</th>
                     </tr>
                 </thead>
@@ -43,20 +39,16 @@
                     @forelse($resp as $i => $res)
                         <tr style="{{ $i % 2 == 0 ? 'background-color: #f8f9fa' : 'background-color: #fff' }}">
                             <td style="text-align: center">{{ $i + 1 }}</td>
-                            <td>{{ $res['po_no'] ?? '' }}</td>
-                            <td>{{ $res['supplier_name'] ?? '' }}</td>
-                            <td>{{ $res['po_date'] ?? '' }}</td>
-                            <td style="text-align:right;">{{ $res['gross'] ?? '' }}</td>
-                            <td style="text-align:right;">{{ $res['gstamt'] ?? '' }}</td>
-                            <td style="text-align:right;">{{ $res['roundoff'] ?? '' }}</td>
-                            <td style="text-align:right;">{{ $res['netamt'] ?? '' }}</td>
+                            <td>{{ $res['adjno'] ?? '' }}</td>
+                            <td>{{ $res[''] ?? '' }}</td>
+                            <td>{{ $res['reason'] }}</td>
                             <td style="color: {{ ($res['activeyn'] ?? 'N') === 'Y' ? 'green' : 'red' }}; text-align: center;">
-                                {{ (($res['activeyn'] ?? 'N') === 'Y') ? 'Active' : 'Inactive' }}
+                                {{ ($res['activeyn'] ?? 'N') === 'Y' ? 'Active' : 'Inactive' }}
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" style="text-align: center; padding: 20px;">No records found</td>
+                            <td colspan="5" style="text-align: center; padding: 20px;">No records found</td>
                         </tr>
                     @endforelse
                 </tbody>

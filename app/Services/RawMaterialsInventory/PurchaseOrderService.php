@@ -44,7 +44,7 @@ class PurchaseOrderService{
         return $this->api->get('purchase_order.php', $param);
     }
 
-    public function sataPurchaseOrder( $compcd, $code, $aedl ){
+    public function statPurchaseOrder( $compcd, $code, $aedl ){
         $param = [
                     'aedl' => $aedl,
                     'compcd' => $compcd,
