@@ -28,7 +28,7 @@
     <div class="wrapper">
         <div id="loader"></div>
         <div id="header-container">
-            @include('includes.header_common')
+            @include('includes.header')
         </div>
         
         <div id="sidebar-container">
