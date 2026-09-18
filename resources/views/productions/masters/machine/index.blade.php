@@ -1,6 +1,5 @@
-@extends('company.layout.app')
-
-@section('pageTitle', 'Company')
+@extends('layout.app', ['dept' => 'Production'])
+@section('page_title', 'Machine')
 
 @section('content')
 
@@ -8,24 +7,35 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header py-1">
-                    <label for="" class="card-title">Company</label>
+                    <label for="" class="card-title">Machine</label>
+
+                    <button class="btn btn-sm btn-secondary float-right ml-1"
+                        onclick="location.href='{{ Route('production.printMachineList') }}'">
+                        <i class="fas fa-print mr-1"></i> Print
+                    </button>
+
                     <button class="btn btn-sm btn-dark float-right"
-                        onclick="location.href='{{ Route('compDetails', 'new') }}';"><i class="fas fa-plus-circle mr-1"></i>
-                        Add New</button>
+                        onclick="location.href='{{ route('machineDetails') }}';">
+                        <i class="fas fa-plus-circle mr-1"></i>
+                        Add New
+                    </button>
                 </div>
                 <div class="card-body">
-                    <table id="depttable" class="table table-sm table-bordered text-xs">
+                    <table id="depttable" class="table table-sm table-bordered">
                         <thead class="thead-light">
                             <tr>
-                                <th style="width:80%">Name</th>
+                                <th style="width:25%">Name</th>
+                                <th style="width:15%">Model No.</th>
+                                <th style="width:15%">Serial No.</th>
+                                <th style="width:15%">Next Maintenance Date</th>
                                 <th style="width:10%">Status</th>
                                 <th style="width:10%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($comp as $c)
+                            @forelse( $machines as $m )
                                 @php
-                                    $status = $c['activeyn'] ?? 'N';
+                                    $status = $m['activeyn'] ?? 'N';
                                     $btnColor = $aedl = '';
                                     if( $status === 'Y' ) {
                                         $status = 'Active';
@@ -38,10 +48,13 @@
                                     }
                                 @endphp
                                 <tr>
-                                    <td>{{ $c['name'] }}</td>
+                                    <td>{{ $m['name'] ?? '' }}</td>
+                                    <td>{{ $m['model_no'] ?? '' }}</td>
+                                    <td>{{ $m['serial_no'] ?? '' }}</td>
+                                    <td>{{ $m['next_maintenance_date'] ?? '' }}</td>
                                     <td>
                                         <button type='button' class="btn btn-xs {{ $btnColor }} btn-block"
-                                            onclick="mtd.show_msg(2, '{{route('statComp', ['code' => $c['code'], 'aedl'=>$aedl])}}', 'Are you sure to change its status..?', 2);"
+                                            onclick="mtd.show_msg(2, '{{ route('machine.stat', ['code' => $m['code'], 'actyn' => $m['activeyn']]) }}', 'Are you sure to change its status..?', 2);"
                                         >
                                             {{ $status }}
                                         </button>
@@ -50,7 +63,7 @@
                                         <i class="fas fa-bars ml-2 mr-1" data-toggle="dropdown" href="#"
                                             style="cursor:pointer"></i>
                                         <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                                            <a href="{{ Route('compDetails', ['mode'=>'view', 'code'=>$c['code']]) }}" class="dropdown-item">
+                                            <a href="{{ route('machineDetails', ['vwedt' => 1, 'code' => $m['code']]) }}" class="dropdown-item">
                                                 <div class="media">
                                                     <div class="media-body">
                                                         <p>View</p>
@@ -58,7 +71,7 @@
                                                 </div>
                                             </a>
                                             <div class="dropdown-divider"></div>
-                                            <a href="{{ Route('compDetails', ['mode'=>'edit', 'code'=>$c['code']]) }}" class="dropdown-item">
+                                            <a href="{{ route('machineDetails', ['vwedt' => 2, 'code' => $m['code']]) }}" class="dropdown-item">
                                                 <div class="media">
                                                     <div class="media-body">
                                                         <p>Edit</p>
@@ -69,7 +82,9 @@
                                     </td>
                                 </tr>
                             @empty
-                                <tr><td colspan="3" style="text-align:center;">No data available</td></tr>
+                                <tr>
+                                    <td colspan="6" class="text-center">No Data Found</td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>

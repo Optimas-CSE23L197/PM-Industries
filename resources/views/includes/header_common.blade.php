@@ -1,13 +1,20 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light py-0">
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
-        <li class="nav-item d-sm-inline-block">
+    <ul class="navbar-nav align-items-center">
+        <!-- Sidebar Trigger (Center aligned with logo) -->
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                <i class="fa-solid fa-bars"></i>
+            </a>
+        </li>
+        <!-- Logo -->
+        <li class="nav-item d-sm-inline-block ml-2">
             <img src="{{ asset('assets/dist/img/logo.png') }}" class="brand-image" style="height:7vh">
         </li>
     </ul>
 
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto align-items-center">
         <!-- Switch Department -->
         <li class="nav-item">
             <a class="nav-link" href="{{ Route('chooseDept') }}" data-toggle="tooltip" data-placement="top" data-html="true"
