@@ -41,6 +41,9 @@
             @elseif ($dept === 'CRM')
                 @include('includes.sidebar_crm')
                 <script src="{{ asset('assets/dist/js/sidebar_crm.js') }}"></script>
+            @elseif ($dept === 'Payroll')
+            @include('includes.sidebar_payroll')
+            <script src="{{ asset('assets/dist/js/sidebar_payroll.js') }}"></script>
             @endif
         </div>
 

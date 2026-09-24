@@ -9,6 +9,8 @@ use App\Http\Controllers\Production\{DashboardProductionCntlr, FinishedItemTypeC
 
 use App\Http\Controllers\CRM\{DashboardCrmCntlr, CustomerCntlr,LeadSourceCntlr,TermsConditionsCntlr,PriceListCntlr, EnquiryCntlr, EnquiryFollowupCntlr, QuotationCntlr, QuotationFollowupCntlr, SalesOrderCntlr, SalesCntlr, SalesReturnCntlr, ReceiptCntlr, ReceiptFollowupCntlr};
 
+use App\Http\Controllers\Payroll\{ PayrollDashboardCntlr, ContractorCntlr, WorkerAdvanceCntlr, WorkerCntlr, ContractorBillCntlr };
+
 
 Route::controller(AuthCntlr::class)->group(function(){
     Route::get('/', 'userLogin')->name('userLogin');
@@ -35,98 +37,55 @@ Route::middleware(['checksession'])->group(function () {
     /* ============== || PRODUCTION || ================ */
     Route::prefix('/production')->group(function () {
 
-        /* ============== || DASHBOARD || ================ */
         Route::get('/dashboard', [DashboardProductionCntlr::class, 'production'])
             ->name('production.dashboard');
 
-        /* ============== || FINISHED ITEM TYPE || ================ */
         Route::controller(FinishedItemTypeCntlr::class)->group(function () {
-            Route::get('/finished-item-type', 'finishedItemType')
-                ->name('finishedItemType');
-            Route::get('/finished-item-type-details/{vwedt?}/{code?}', 'finishedItemTypeDetails')
-                ->name('finishedItemTypeDetails');
-            Route::post('/save-finished-item-type', 'saveFinishedItemType')
-                ->name('saveFinishedItemType');
-            Route::get('/finished-item-type-stat/{code}/{actyn}', 'statFinishedItemType')
-                ->name('finishedItemType.stat');
-            /* PRINT */
-            Route::get('/print-finished-item-type-list', 'printFinishedItemTypeList')
-                ->name('production.printFinishedItemTypeList');
+            Route::get('/finished-item-type', 'finishedItemType')->name('finishedItemType');
+            Route::get('/finished-item-type-details/{vwedt?}/{code?}', 'finishedItemTypeDetails')->name('finishedItemTypeDetails');
+            Route::post('/save-finished-item-type', 'saveFinishedItemType')->name('saveFinishedItemType');
+            Route::get('/finished-item-type-stat/{code}/{actyn}', 'statFinishedItemType')->name('finishedItemType.stat');
+            Route::get('/print-finished-item-type-list', 'printFinishedItemTypeList')->name('production.printFinishedItemTypeList');
         });
 
-        /* ============== || FINISHED ITEM || ================ */
         Route::controller(FinishedItemCntlr::class)->group(function () {
-            Route::get('/finished-item', 'finishedItem')
-                ->name('finishedItem');
-            Route::get('/finished-item-details/{vwedt?}/{code?}', 'finishedItemDetails')
-                ->name('finishedItemDetails');
-            Route::post('/save-finished-item', 'saveFinishedItem')
-                ->name('saveFinishedItem');
-            Route::get('/finished-item-stat/{code}/{actyn}', 'statFinishedItem')
-                ->name('finishedItem.stat');
-            /* PRINT */
-            Route::get('/print-finished-item-list', 'printFinishedItemList')
-                ->name('production.printFinishedItemList');
+            Route::get('/finished-item', 'finishedItem')->name('finishedItem');
+            Route::get('/finished-item-details/{vwedt?}/{code?}', 'finishedItemDetails')->name('finishedItemDetails');
+            Route::post('/save-finished-item', 'saveFinishedItem')->name('saveFinishedItem');
+            Route::get('/finished-item-stat/{code}/{actyn}', 'statFinishedItem')->name('finishedItem.stat');
+            Route::get('/print-finished-item-list', 'printFinishedItemList')->name('production.printFinishedItemList');
         });
 
-        /* ============== || ITEM SIZE || ================ */
         Route::controller(ItemSizeCntlr::class)->group(function () {
-            Route::get('/item-size', 'itemSize')
-                ->name('itemSize');
-            Route::get('/item-size-details/{vwedt?}/{code?}', 'itemSizeDetails')
-                ->name('itemSizeDetails');
-            Route::post('/save-item-size', 'saveItemSize')
-                ->name('saveItemSize');
-            Route::get('/item-size-stat/{code}/{actyn}', 'statItemSize')
-                ->name('itemSize.stat');
-            /* PRINT */
-            Route::get('/print-item-size-list', 'printItemSizeList')
-                ->name('production.printItemSizeList');
+            Route::get('/item-size', 'itemSize')->name('itemSize');
+            Route::get('/item-size-details/{vwedt?}/{code?}', 'itemSizeDetails')->name('itemSizeDetails');
+            Route::post('/save-item-size', 'saveItemSize')->name('saveItemSize');
+            Route::get('/item-size-stat/{code}/{actyn}', 'statItemSize')->name('itemSize.stat');
+            Route::get('/print-item-size-list', 'printItemSizeList')->name('production.printItemSizeList');
         });
 
-        /* ============== || BOM || ================ */
         Route::controller(BomCntlr::class)->group(function () {
-            Route::get('/bom', 'bom')
-                ->name('bom');
-            Route::get('/bom-details/{vwedt?}/{code?}', 'bomDetails')
-                ->name('bomDetails');
-            Route::post('/save-bom', 'saveBom')
-                ->name('saveBom');
-            Route::get('/bom-stat/{code}/{actyn}', 'statBom')
-                ->name('bom.stat');
-            /* PRINT */
-            Route::get('/print-bom-list', 'printBomList')
-                ->name('production.printBomList');
+            Route::get('/bom', 'bom')->name('bom');
+            Route::get('/bom-details/{vwedt?}/{code?}', 'bomDetails')->name('bomDetails');
+            Route::post('/save-bom', 'saveBom')->name('saveBom');
+            Route::get('/bom-stat/{code}/{actyn}', 'statBom')->name('bom.stat');
+            Route::get('/print-bom-list', 'printBomList')->name('production.printBomList');
         });
 
-        /* ============== || MACHINE || ================ */
         Route::controller(MachineCntlr::class)->group(function () {
-            Route::get('/machine', 'machine')
-                ->name('machine');
-            Route::get('/machine-details/{vwedt?}/{code?}', 'machineDetails')
-                ->name('machineDetails');
-            Route::post('/save-machine', 'saveMachine')
-                ->name('saveMachine');
-            Route::get('/machine-stat/{code}/{actyn}', 'statMachine')
-                ->name('machine.stat');
-            /* PRINT */
-            Route::get('/print-machine-list', 'printMachineList')
-                ->name('production.printMachineList');
+            Route::get('/machine', 'machine')->name('machine');
+            Route::get('/machine-details/{vwedt?}/{code?}', 'machineDetails')->name('machineDetails');
+            Route::post('/save-machine', 'saveMachine')->name('saveMachine');
+            Route::get('/machine-stat/{code}/{actyn}', 'statMachine')->name('machine.stat');
+            Route::get('/print-machine-list', 'printMachineList')->name('production.printMachineList');
         });
 
-        /* ============== || MAINTENANCE TYPE || ================ */
         Route::controller(MaintenanceTypeCntlr::class)->group(function () {
-            Route::get('/maintenance-type', 'maintenanceType')
-                ->name('maintenanceType');
-            Route::get('/maintenance-type-details/{vwedt?}/{code?}', 'maintenanceTypeDetails')
-                ->name('maintenanceTypeDetails');
-            Route::post('/save-maintenance-type', 'saveMaintenanceType')
-                ->name('saveMaintenanceType');
-            Route::get('/maintenance-type-stat/{code}/{actyn}', 'statMaintenanceType')
-                ->name('maintenanceType.stat');
-            /* PRINT */
-            Route::get('/print-maintenance-type-list', 'printMaintenanceTypeList')
-                ->name('production.printMaintenanceTypeList');
+            Route::get('/maintenance-type', 'maintenanceType')->name('maintenanceType');
+            Route::get('/maintenance-type-details/{vwedt?}/{code?}', 'maintenanceTypeDetails')->name('maintenanceTypeDetails');
+            Route::post('/save-maintenance-type', 'saveMaintenanceType')->name('saveMaintenanceType');
+            Route::get('/maintenance-type-stat/{code}/{actyn}', 'statMaintenanceType')->name('maintenanceType.stat');
+            Route::get('/print-maintenance-type-list', 'printMaintenanceTypeList')->name('production.printMaintenanceTypeList');
         });
 
     });
@@ -136,13 +95,8 @@ Route::middleware(['checksession'])->group(function () {
     /* ============== || CRM || ================ */
     Route::prefix('/crm')->group(function () {
 
-        /* ============== || DASHBOARD || ================ */
-        Route::get('/dashboard', [DashboardCrmCntlr::class, 'crm'])
-            ->name('crm.dashboard');
+        Route::get('/dashboard', [DashboardCrmCntlr::class, 'crm'])->name('crm.dashboard');
 
-        /* ============== || MASTERS || ================ */
-
-        /* Customer */
         Route::controller(CustomerCntlr::class)->group(function () {
             Route::get('/customer', 'customer')->name('customer');
             Route::get('/customer-details/{vwedt?}/{code?}', 'customerDetails')->name('customerDetails');
@@ -151,7 +105,6 @@ Route::middleware(['checksession'])->group(function () {
             Route::get('/print-customer-list', 'printCustomerList')->name('crm.printCustomerList');
         });
 
-        /* Lead Source */
         Route::controller(LeadSourceCntlr::class)->group(function () {
             Route::get('/lead-source', 'leadSource')->name('leadSource');
             Route::get('/lead-source-details/{vwedt?}/{code?}', 'leadSourceDetails')->name('leadSourceDetails');
@@ -160,7 +113,6 @@ Route::middleware(['checksession'])->group(function () {
             Route::get('/print-lead-source-list', 'printLeadSourceList')->name('crm.printLeadSourceList');
         });
 
-        /* Price List */
         Route::controller(PriceListCntlr::class)->group(function () {
             Route::get('/price-list', 'priceList')->name('priceList');
             Route::get('/price-list-details/{vwedt?}/{code?}', 'priceListDetails')->name('priceListDetails');
@@ -169,15 +121,11 @@ Route::middleware(['checksession'])->group(function () {
             Route::get('/print-price-list', 'printPriceList')->name('crm.printPriceList');
         });
 
-        /* Terms & Conditions */
         Route::controller(TermsConditionsCntlr::class)->group(function () {
             Route::get('/terms-conditions', 'termsConditions')->name('termsConditions');
             Route::post('/save-terms-conditions', 'saveTermsConditions')->name('saveTermsConditions');
         });
 
-        /* ============== || TRANSACTIONS || ================ */
-
-        /* Enquiry */
         Route::controller(EnquiryCntlr::class)->group(function () {
             Route::get('/enquiry', 'enquiry')->name('enquiry');
             Route::get('/enquiry-details/{vwedt?}/{intno?}', 'enquiryDetails')->name('enquiryDetails');
@@ -186,7 +134,6 @@ Route::middleware(['checksession'])->group(function () {
             Route::get('/print-enquiry-list', 'printEnquiryList')->name('crm.printEnquiryList');
         });
 
-        /* Enquiry Followup */
         Route::controller(EnquiryFollowupCntlr::class)->group(function () {
             Route::get('/enquiry-followup', 'enquiryFollowup')->name('enquiryFollowup');
             Route::get('/enquiry-followup-details/{vwedt?}/{intno?}', 'enquiryFollowupDetails')->name('enquiryFollowupDetails');
@@ -195,7 +142,6 @@ Route::middleware(['checksession'])->group(function () {
             Route::get('/print-enquiry-followup-list', 'printEnquiryFollowupList')->name('crm.printEnquiryFollowupList');
         });
 
-        /* Quotation */
         Route::controller(QuotationCntlr::class)->group(function () {
             Route::get('/quotation', 'quotation')->name('quotation');
             Route::get('/quotation-details/{vwedt?}/{intno?}', 'quotationDetails')->name('quotationDetails');
@@ -204,7 +150,6 @@ Route::middleware(['checksession'])->group(function () {
             Route::get('/print-quotation-list', 'printQuotationList')->name('crm.printQuotationList');
         });
 
-        /* Quotation Followup */
         Route::controller(QuotationFollowupCntlr::class)->group(function () {
             Route::get('/quotation-followup', 'quotationFollowup')->name('quotationFollowup');
             Route::get('/quotation-followup-details/{vwedt?}/{intno?}', 'quotationFollowupDetails')->name('quotationFollowupDetails');
@@ -213,7 +158,6 @@ Route::middleware(['checksession'])->group(function () {
             Route::get('/print-quotation-followup-list', 'printQuotationFollowupList')->name('crm.printQuotationFollowupList');
         });
 
-        /* Sales Order */
         Route::controller(SalesOrderCntlr::class)->group(function () {
             Route::get('/sales-order', 'salesOrder')->name('salesOrder');
             Route::get('/sales-order-details/{vwedt?}/{intno?}', 'salesOrderDetails')->name('salesOrderDetails');
@@ -222,7 +166,6 @@ Route::middleware(['checksession'])->group(function () {
             Route::get('/print-sales-order-list', 'printSalesOrderList')->name('crm.printSalesOrderList');
         });
 
-        /* Sales */
         Route::controller(SalesCntlr::class)->group(function () {
             Route::get('/sales', 'sales')->name('sales');
             Route::get('/sales-details/{vwedt?}/{intno?}', 'salesDetails')->name('salesDetails');
@@ -231,7 +174,6 @@ Route::middleware(['checksession'])->group(function () {
             Route::get('/print-sales-list', 'printSalesList')->name('crm.printSalesList');
         });
 
-        /* Sales Return */
         Route::controller(SalesReturnCntlr::class)->group(function () {
             Route::get('/sales-return', 'salesReturn')->name('salesReturn');
             Route::get('/sales-return-details/{vwedt?}/{intno?}', 'salesReturnDetails')->name('salesReturnDetails');
@@ -240,7 +182,6 @@ Route::middleware(['checksession'])->group(function () {
             Route::get('/print-sales-return-list', 'printSalesReturnList')->name('crm.printSalesReturnList');
         });
 
-        /* Receipt */
         Route::controller(ReceiptCntlr::class)->group(function () {
             Route::get('/receipt', 'receipt')->name('receipt');
             Route::get('/receipt-details/{vwedt?}/{intno?}', 'receiptDetails')->name('receiptDetails');
@@ -249,7 +190,6 @@ Route::middleware(['checksession'])->group(function () {
             Route::get('/print-receipt-list', 'printReceiptList')->name('crm.printReceiptList');
         });
 
-        /* Receipt Followup */
         Route::controller(ReceiptFollowupCntlr::class)->group(function () {
             Route::get('/receipt-followup', 'receiptFollowup')->name('receiptFollowup');
             Route::get('/receipt-followup-details/{vwedt?}/{intno?}', 'receiptFollowupDetails')->name('receiptFollowupDetails');
@@ -262,17 +202,11 @@ Route::middleware(['checksession'])->group(function () {
     /* ============== || CRM || ================ */
 
 
-
     /* ============== || Raw Materials Inventory || ================ */
     Route::prefix('/raw-materials-inventory')->group(function(){
         Route::get('/dashboard', [DashboardCntlr::class, 'dashboard'])->name('rawMaterialsInventory.dashboard');
 
-
-        /* =====================================================================
-                                    Masters
-        ========================================================================= */
         Route::prefix('/masters')->group(function(){
-            /* ============== || Raw Item Type || ================ */
             Route::controller(RawItemTypeCntlr::class)->group(function(){
                 Route::get('/raw-item-type', 'index')->name('rawMaterialsInventory.rawMaterialTypeList');
                 Route::get('/print-raw-item-type-list', 'getprint')->name('rawMaterialsInventory.printRawItemTypeList');
@@ -280,9 +214,7 @@ Route::middleware(['checksession'])->group(function () {
                 Route::post('/save-raw-item-type', 'saveRawMaterialType')->name('rawMaterialsInventory.rawMaterialTypeSave');
                 Route::get('/raw-item-type-stat-change/{code}/{aedl}', 'statRawMaterialType')->name('rawMaterialsInventory.rawMaterialTypeStatChange');
             });
-            /* ============== || Raw Item Type || ================ */
 
-            /* ============== || Raw Item || ================ */
             Route::controller(RawItemCntlr::class)->group(function(){
                 Route::get('/raw-item', 'getList')->name('rawMaterialsInventory.rawItemList');
                 Route::get('/print-raw-item-list', 'getprint')->name('rawMaterialsInventory.printRawItemList');
@@ -290,9 +222,7 @@ Route::middleware(['checksession'])->group(function () {
                 Route::post('/save-raw-item', 'saveRawItem')->name('rawMaterialsInventory.rawItemSave');
                 Route::get('/raw-item-stat-change/{code}/{aedl}', 'statRawItem')->name('rawMaterialsInventory.rawItemStatChange');
             });
-            /* ============== || Raw Item || ================ */
 
-            /* ============== || Store || =============== */
             Route::controller(StoreCntlr::class)->group(function(){
                 Route::get('/get-store-list', 'getList')->name('rawMaterialsInventory.storeList');
                 Route::get('/print-store-list', 'getPrint')->name('rawMaterialsInventory.printStoreList');
@@ -300,9 +230,7 @@ Route::middleware(['checksession'])->group(function () {
                 Route::post('/save-store', 'saveStore')->name('rawMaterialsInventory.saveStore');
                 Route::get('/store-stat-change', 'statStore')->name('rawMaterialsInventory.storeStatChange');
             });
-            /* ============== || Store || =============== */
 
-            /* ================ || Supplier || ================== */
             Route::controller(SupplierCntlr::class)->group(function(){
                 Route::get('/supplier', 'getList')->name('rawMaterialsInventory.supplierList');
                 Route::get('/print-supplier-list', 'getprint')->name('rawMaterialsInventory.printSupplierList');
@@ -310,9 +238,7 @@ Route::middleware(['checksession'])->group(function () {
                 Route::post('/save-supplier', 'saveSupplier')->name('rawMaterialsInventory.supplierSave');
                 Route::get('/supplier-stat-change/{code}/{aedl}', 'statSupplier')->name('rawMaterialsInventory.supplierStatChange');
             });
-            /* ================ || Supplier || ================== */
 
-            /* ================ || Department || ================== */
             Route::controller(DepartmentCntlr::class)->group(function(){
                 Route::get('/department', 'getList')->name('rawMaterialsInventory.departmentList');
                 Route::get('/print-department-list', 'getPrint')->name('rawMaterialsInventory.printDepartmentList');
@@ -320,9 +246,7 @@ Route::middleware(['checksession'])->group(function () {
                 Route::post('/save-department', 'saveDepartment')->name('rawMaterialsInventory.Savedepartment');
                 Route::get('/department-stat-change/{code}/{aedl}', 'statDepartment')->name('rawMaterialsInventory.departmentStatChange');
             });
-            /* ================ || Department || ================== */
 
-            /* ================ || Opening Stock || ================== */
             Route::controller(OpeningStkCntlr::class)->group(function(){
                 Route::get('/get-opening-stock', 'getList')->name('rawMaterialsInventory.opStkList');
                 Route::get('/print-opening-stock', 'getPrint')->name('rawMaterialsInventory.printOpStkList');
@@ -330,18 +254,9 @@ Route::middleware(['checksession'])->group(function () {
                 Route::post('/save-opening-stock', 'saveOpStk')->name('rawMaterialsInventory.saveOpStk');
                 Route::get('/opening-stock-stat-change/{code}/{aedl}', 'statOpStk')->name('rawMaterialsInventory.opStkStatChange');
             });
-            /* ================ || Opening Stock || ================== */
         });
-        /* =====================================================================
-                                    Masters
-        ========================================================================= */
 
-
-        /* =====================================================================
-                                    Transactions
-        ========================================================================= */
         Route::prefix('/transactions')->group(function(){
-            /* ============== || Purchase Order || ================ */
             Route::controller(PurchaseOrderCntlr::class)->group(function(){
                 Route::get('/get-purchase-order-list', 'getList')->name('rawMaterialsInventory.purchaseOrderList');
                 Route::get('/print-purchase-order-list', 'getPrint')->name('rawMaterialsInventory.printPurchaseOrderList');
@@ -349,9 +264,7 @@ Route::middleware(['checksession'])->group(function () {
                 Route::post('/save-Purchase-order', 'savePurchaseOrder')->name('rawMaterialsInventory.savePurchsaeOrder');
                 Route::get('purchase-order-stat-change/{code}/{aedl}', 'statPurchaseOrder')->name('rawMaterialsInventory.statPurchaseOrder');
             });
-            /* ============== || Purchase Order || ================ */
 
-            /* ============== || Purchase || ================ */
             Route::controller(PurchaseCntlr::class)->group(function(){
                 Route::get('/get-purchase-list', 'getList')->name('rawMaterialsInventory.purchaseList');
                 Route::get('/print-purchase-list', 'getPrint')->name('rawMaterialsInventory.printPurchaseList');
@@ -359,17 +272,13 @@ Route::middleware(['checksession'])->group(function () {
                 Route::post('/save-purchase', 'savePurchase')->name('rawMaterialsInventory.savePurchase');
                 Route::get('/purchase-stat-change/{code}/{aedl}', 'statPurchase')->name('rawMaterialsInventory.statPurchase');
             });
-            /* ============== || Purchase || ================ */
 
-            /* ============== || Purchase Return || ================ */
             Route::controller(PurchaseReturnCntlr::class)->group(function(){
                 Route::get('/get-purchase-return-list', 'getList')->name('rawMaterialsInventory.purchaseRtnList');
                 Route::get('/print-purchase-return-list', 'getPrint')->name('rawMaterialsInventory.printPurchaseRtnList');
                 Route::get('/purchase-return-details/{mode}/{code?}', 'getDetails')->name('rawMaterialsInventory.purchaseRtnDetails');
             });
-            /* ============== || Purchase Return || ================ */
 
-            /* ============== || Issue To Department || ================ */
             Route::controller(IssueToDeptCntlr::class)->group(function(){
                 Route::get('/get-issue-to-department-list', 'getList')->name('rawMaterialsInventory.issueToDeptList');
                 Route::get('/print-issue-to-department-list', 'getPrint')->name('rawMaterialsInventory.printIssueToDeptList');
@@ -377,9 +286,7 @@ Route::middleware(['checksession'])->group(function () {
                 Route::post('/save-issue-to-department', 'saveIssuetoDept')->name('rawMaterialsInventory.saveIssuetoDept');
                 Route::get('/issue-to-department-stat-change/{code}/{aedl}', 'statIssueToDept')->name('rawMaterialsInventory.statIssueToDept');
             });
-            /* ============== || Issue to department || ================ */
 
-            /* ============== || Return From Department || ================ */
             Route::controller(ReturnFrmDeptCntlr::class)->group(function(){
                 Route::get('/get-return-from-department-list', 'getList')->name('rawMaterialsInventory.rtnFrmDeptList');
                 Route::get('/print-return-from-department-list', 'getPrint')->name('rawMaterialsInventory.printRtnFrmDeptList');
@@ -387,9 +294,7 @@ Route::middleware(['checksession'])->group(function () {
                 Route::post('/save-return-from-department', 'saveRtnfrmDept')->name('rawMaterialsInventory.saveRtnfrmDept');
                 Route::get('/return-from-department-stat-change/{code}/{aedl}', 'statRtnFrmDept')->name('rawMaterialsInventory.statRtnFrmDept');
             });
-            /* ============== || Return From Department || ================ */
 
-            /* ================ || Stock Adjustment || ================== */
             Route::controller(StockAdjCntlr::class)->group(function(){
                 Route::get('/get-stock-adjustment-list', 'getList')->name('rawMaterialsInventory.stkAdjList');
                 Route::get('/print-stock-adjustment-list', 'getPrint')->name('rawMaterialsInventory.printStkAdjList');
@@ -397,11 +302,76 @@ Route::middleware(['checksession'])->group(function () {
                 Route::post('/save-stock-adjustment', 'saveStkAdj')->name('rawMaterialsInventory.saveStkAdj');
                 Route::get('/stock-adjustment-stat-change/{code}/{aedl}', 'statStkAdj')->name('rawMaterialsInventory.statStkAdj');
             });
-            /* ================ || Stock Adjustment || ================== */
         });
-        /* =====================================================================
-                                    Transactions
-        ========================================================================= */
     });
     /* ============== || Raw Materials Inventory || ================ */
+
+
+        /* ============== || PAYROLL || ================ */
+    Route::prefix('/payroll')->group(function () {
+        Route::get('/dashboard', [PayrollDashboardCntlr::class, 'payroll'])->name('payroll.dashboard');
+
+        /* ============== || CONTRACTOR || ================ */
+        Route::controller(ContractorCntlr::class)->group(function () {
+            Route::get('/contractor', 'contractor')
+                ->name('payroll.contractor');
+            Route::get('/contractor-details/{vwedt?}/{code?}', 'contractorDetails')
+                ->name('payroll.contractorDetails');
+            Route::post('/save-contractor', 'saveContractor')
+                ->name('payroll.saveContractor');
+            Route::get('/contractor-stat/{code}/{actyn}', 'statContractor')
+                ->name('payroll.contractor.stat');
+            /* PRINT */
+            Route::get('/print-contractor-list', 'printContractorList')
+                ->name('payroll.printContractorList');
+        });
+
+        /* ============== || WORKER || ================ */
+        Route::controller(WorkerCntlr::class)->group(function () {
+            Route::get('/worker', 'worker')
+                ->name('payroll.worker');
+            Route::get('/worker-details/{vwedt?}/{code?}', 'workerDetails')
+                ->name('payroll.workerDetails');
+            Route::post('/save-worker', 'saveWorker')
+                ->name('payroll.saveWorker');
+            Route::get('/worker-stat/{code}/{actyn}', 'statWorker')
+                ->name('payroll.worker.stat');
+            /* PRINT */
+            Route::get('/print-worker-list', 'printWorkerList')
+                ->name('payroll.printWorkerList');
+        });
+
+        /* ============== || WORKER ADVANCE || ================ */
+        Route::controller(WorkerAdvanceCntlr::class)->group(function () {
+            Route::get('/worker-advance', 'workerAdvance')
+                ->name('payroll.workerAdvance');
+            Route::get('/worker-advance-details/{vwedt?}/{intno?}', 'workerAdvanceDetails')
+                ->name('payroll.workerAdvanceDetails');
+            Route::post('/save-worker-advance', 'saveWorkerAdvance')
+                ->name('payroll.saveWorkerAdvance');
+            Route::get('/worker-advance-stat/{intno}/{actyn}', 'statWorkerAdvance')
+                ->name('payroll.workerAdvance.stat');
+            /* PRINT */
+            Route::get('/print-worker-advance-list', 'printWorkerAdvanceList')
+                ->name('payroll.printWorkerAdvanceList');
+        });
+
+        /* ============== || CONTRACTOR BILL || ================ */
+        Route::controller(ContractorBillCntlr::class)->group(function () {
+            Route::get('/contractor-bill', 'contractorBill')
+                ->name('payroll.contractorBill');
+            Route::get('/contractor-bill-details/{vwedt?}/{intno?}', 'contractorBillDetails')
+                ->name('payroll.contractorBillDetails');
+            Route::post('/save-contractor-bill', 'saveContractorBill')
+                ->name('payroll.saveContractorBill');
+            Route::get('/contractor-bill-stat/{intno}/{actyn}', 'statContractorBill')
+                ->name('payroll.contractorBill.stat');
+            /* PRINT */
+            Route::get('/print-contractor-bill-list', 'printContractorBillList')
+                ->name('payroll.printContractorBillList');
+        });
+
+    });
+    /* ============== || PAYROLL || ================ */
+
 });
